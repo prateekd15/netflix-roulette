@@ -1,0 +1,26 @@
+.counter {
+	background-color: #232323;
+	padding: 12px 0;
+}
+
+.counter__title {
+	text-align: center;
+	color: #fffdfa;
+}
+
+.counter__btns {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	padding: 12px 0;
+}
+
+.counter__btn {
+	display: flex;
+	gap: 8px;
+	padding: 8px 20px;
+	background-color: #665640;
+	border: none;
+	cursor: pointer;
+	color: #fffdfa;
+}
