@@ -1,0 +1,29 @@
+.search-form {
+	display: flex;
+	padding: 2%;
+  
+	input {
+	  width: 100%;
+	  font-size: 20px;
+	  font-weight: 400;
+	  padding: 16px 19px;
+	  border: none;
+	  border-radius: 3px;
+	  color: #4f4f4f;
+	  background-color: #232323;
+	  opacity: 0.8;
+	}
+  
+	button {
+	  width: 233px;
+	  height: 57px;
+	  border-radius: 3px;
+	  font-size: 1.23rem;
+	  font-weight: 500;
+	  background-color: #F65261;
+	  color: #ffffff;
+	  border: none;
+	  margin-left: 2%;
+	}
+  }
+  
