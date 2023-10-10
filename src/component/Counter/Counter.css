@@ -1,5 +1,5 @@
 .counter {
-	background-color: #232323;
+	background-color: #424242;
 	padding: 12px 0;
 }
 
@@ -19,7 +19,7 @@
 	display: flex;
 	gap: 8px;
 	padding: 8px 20px;
-	background-color: #665640;
+	background-color: #f65261;
 	border: none;
 	cursor: pointer;
 	color: #fffdfa;
