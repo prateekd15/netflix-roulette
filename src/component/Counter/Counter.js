@@ -1,5 +1,7 @@
 import React from "react";
 import "./Counter.css";
+import { incrementButton } from '../../constants.js';
+import { decrementButton } from '../../constants.js'
 
 class Counter extends React.Component {
 	constructor(props) {
@@ -21,6 +23,17 @@ class Counter extends React.Component {
 		}));
 	};
 
+	createCounterButton = (button, clickHandler) => {
+		return React.createElement(
+			"button",
+			{
+				onClick: clickHandler,
+				className: "counter__btn",
+			},
+			button
+		)
+	};
+
 	render() {
 		return React.createElement(
 			"div",
@@ -33,22 +46,8 @@ class Counter extends React.Component {
 			React.createElement(
 				"div",
 				{ className: "counter__btns" },
-				React.createElement(
-					"button",
-					{
-						onClick: this.handleDecrement,
-						className: "counter__btn",
-					},
-					"-"
-				),
-				React.createElement(
-					"button",
-					{
-						onClick: this.handleIncrement,
-						className: "counter__btn",
-					},
-					"+"
-				)
+				this.createCounterButton(decrementButton, this.handleDecrement),
+				this.createCounterButton(incrementButton, this.handleIncrement),
 			)
 		);
 	}
