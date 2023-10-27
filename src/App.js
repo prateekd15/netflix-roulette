@@ -14,7 +14,7 @@ function App() {
   };
 
   const handleSearch = (text) => {
-    console.log('searched value:', text)
+    alert('Searching for: ' + text);
   }
   const initialValue = 27;
   return (
