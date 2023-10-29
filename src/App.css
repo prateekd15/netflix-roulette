@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.temp-movie-tile {
+  background-color: #232323;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.temp-genre-select {
+  background-color: #232323;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 45px;
+  padding-right: 60px;
+}
+
+
+.temp-movie-details {
+  padding-top: 50px;
+}
