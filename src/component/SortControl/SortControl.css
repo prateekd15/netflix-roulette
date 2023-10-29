@@ -1,0 +1,82 @@
+select {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  background: none;
+  box-shadow: none;
+  background-color: #232323;
+  color: #FFF;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+.select {
+  position: relative;
+  display: flex;
+  width: 190px;
+  background: var(--background-select);
+  overflow: hidden;
+  color: #FFF;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.889px;
+  text-transform: uppercase;
+
+  select {
+    flex: 1;
+    padding: 1em;
+    cursor: pointer;
+    color: #FFF;
+  }
+
+  &::after {
+    content: url('/src/assets/down_arrow.png');
+    position: absolute;
+    right: 1rem;
+    top: 15px;
+    transition: 0.25s all ease;
+    pointer-events: none;
+    color: #F65261;
+  }
+}
+
+.sort-control_outer-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-control_label {
+  color: #FFF;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.select option {
+  color: #FFF;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+.select option:hover {
+  background-color: #ddd;
+}

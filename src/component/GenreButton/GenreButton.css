@@ -15,9 +15,12 @@
     margin: 5px;
     padding: 10px;
     font-size: 23px;
-    color: rgb(201, 47, 47);
+    color: white;
     cursor: pointer;
-    border: none;
+    border-bottom: 5px solid #F65261; 
+    border-left: none;
+    border-top: none;
+    border-right: none;
     background-color: transparent;
     font-variant-caps: all-petite-caps;
   }
