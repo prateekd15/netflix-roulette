@@ -13,7 +13,7 @@ function setUp(sampleMovie) {
     return render( <MovieTile {...sampleMovie}/> );
 }
 
-describe(() => {
+describe('MovieTile', () => {
     it('Should render MovieTile component with the correct data', () => {
         const { getByAltText, getByText } = setUp(sampleMovie)
       

@@ -64,7 +64,7 @@
 
 .movie-details_duration, .movie-details_release-year {
     color: #F65261;
-    font-family: Montserrat;
+    font-family: sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 300;
@@ -96,7 +96,7 @@
 
 .movie-details_title {
     color: #F65261;
-    font-family: Montserrat;
+    font-family: sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
