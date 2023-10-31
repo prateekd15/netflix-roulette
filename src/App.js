@@ -27,13 +27,18 @@ function App() {
   const handleSearch = (text) => {
     alert('Searching for: ' + text);
   }
+
+  const [movieDetailsIndex, setMovieDetailsIndex] = useState(1);
+  const handleMovieSelectIndex = (index) => {
+    setMovieDetailsIndex(--index);
+  }
   
   return (
     <>
       <Counter initialValue={15} />
-      <SearchForm onSearch={handleSearch} initialQuery="Harry Potter and the Deathly Hallows – Part 2" />
+      <SearchForm onSearch={handleSearch} initialQuery="Harry Potter and the Deathly Hallows - Part 2" />
       <div className='temp-movie-details'>
-        <MovieDetails {...movies[1]} />
+        <MovieDetails {...movies[movieDetailsIndex]} />
       </div>
       <div className='temp-genre-select'>
         <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
@@ -41,7 +46,7 @@ function App() {
       </div>
       <div className='temp-movie-tile'>
         {movies.map((item) => {
-          return <MovieTile {...item} key={item.movieName}/>
+          return <MovieTile {...item} key={item.id} onSelect={handleMovieSelectIndex}/>
         })};
       </div>
     </>
