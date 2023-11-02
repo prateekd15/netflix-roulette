@@ -15,7 +15,7 @@ select {
   text-transform: uppercase;
 }
 
-.select {
+.sort-control__select {
   position: relative;
   display: flex;
   width: 190px;
@@ -46,7 +46,9 @@ select {
     pointer-events: none;
     color: #F65261;
   }
+  
 }
+
 
 .sort-control_outer-select {
   display: flex;
@@ -79,4 +81,10 @@ select {
 
 .select option:hover {
   background-color: #ddd;
+}
+
+@media (max-width: 640px) {
+  .select::after {
+    right: 0.5rem; /* Adjust the position for smaller screens */
+  }
 }

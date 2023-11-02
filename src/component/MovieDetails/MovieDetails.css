@@ -1,6 +1,5 @@
 .movie-details_outer-container {
     background-color: #232323;
-    padding: 30px 50px;
 }
 
 .movie-details_row {
@@ -101,10 +100,6 @@
     font-style: normal;
     font-weight: 300;
     line-height: normal;
-}
-
-.movie-details_inner {
-    display: flex;
 }
 
 .movie-details_title-row {

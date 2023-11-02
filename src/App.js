@@ -34,22 +34,22 @@ function App() {
   }
   
   return (
-    <>
+    <div className="w-fit">
       <Counter initialValue={15} />
       <SearchForm onSearch={handleSearch} initialQuery="Harry Potter and the Deathly Hallows - Part 2" />
       <div className='temp-movie-details'>
         <MovieDetails {...movies[movieDetailsIndex]} />
       </div>
-      <div className='temp-genre-select'>
+      <div className='temp-genre-select md:px-5 flex lg:flex-row flex-col md:pt-0 pt-4 justify-between'>
         <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
         <SortControl sortFilters={sortFilters} selectedFilter={selectedFilter} onSelect={handleChangeSortFilter}/>
       </div>
-      <div className='temp-movie-tile'>
+      <div className='temp-movie-tile flex flex-wrap'>
         {movies.map((item) => {
           return <MovieTile {...item} key={item.id} onSelect={handleMovieSelectIndex}/>
-        })};
+        })}
       </div>
-    </>
+    </div>
   );
 }
 

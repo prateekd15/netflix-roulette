@@ -19,16 +19,16 @@ const SearchForm = ({ initialQuery, onSearch }) => {
 	  };
 
 	return (
-		<div className="search-form">
+		<div className="search-form_container">
 			<input
-				className="search-form-input"
+				className="search-form_input"
 				type="text"
 				placeholder="What do you want to watch?"
 				defaultValue={initialQuery}
 				onKeyDown={handleKeyDown}
 				onChange={handleInputValueChange}
 			/>
-			<button type="submit" onClick={search}>SEARCH</button>
+			<button type="submit" className="search-form_button" onClick={search}>SEARCH</button>
 		</div>
 	);
 };

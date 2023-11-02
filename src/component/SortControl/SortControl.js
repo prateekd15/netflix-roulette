@@ -7,9 +7,9 @@ function SortControl({ sortFilters, selectedFilter, onSelect }) {
 	  };
 
 	return (
-    <div className="sort-control_outer-select">
+    <div className="sort-control_outer-select float-right">
 		<span className='sort-control_label'>SORT BY</span>
-		<label className="select">
+		<label className="sort-control__select">
 			<select
 				id="sort-control_select"
 				onChange={handleChange}>

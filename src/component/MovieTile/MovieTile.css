@@ -4,9 +4,7 @@
   }
   
   .poster {
-    width: 323px;
     height: 486px;
-    flex-shrink: 0;
   }
   
   .info-container {

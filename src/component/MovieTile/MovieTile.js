@@ -10,10 +10,10 @@ function MovieTile({ imageUrl, movieName, releaseYear, genres, onSelect, id}) {
   }
 
   return (
-    <div className='movie-tile_outer-container'>
+    <div className='card'>
       <MenuButton />
-      <div className='tile-container' onClick={handleOnClick}>
-        <img src={imageUrl} alt={movieName} className='poster' />
+      <div className='py-1' onClick={handleOnClick}>
+        <img src={imageUrl} alt={movieName} className='poster sm:w-96 md:w-80 lg:w-72' />
         <div className='info-container'>
           <div className='title-row'>
             <span className='title'>{movieName}</span>
