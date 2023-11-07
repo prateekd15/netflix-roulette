@@ -18,4 +18,4 @@ export const movieUrlLabel = "Movie URL";
 export const overviewLabel = "Overview";
 export const resetButton = "Reset";
 export const submitButton = "Submit";
-
+export const editDialogHeader = "Edit Movie";

@@ -30,14 +30,9 @@ const AddMovie = () => {
       <button className="add-movie-button" onClick={openFormDialog}>
         {addMovieButton}
       </button>
-      {isFormOpen && 
-      (
+      {isFormOpen && (
         <Dialog title="Add Movie" onClose={closeFormDialog}>
-          <MovieForm
-            onSubmit={handleFormSubmit}
-            onClose={closeFormDialog}
-            formType="Add movie"
-          />
+          <MovieForm onSubmit={handleFormSubmit} onClose={closeFormDialog} formType="Add movie" />
         </Dialog>
       )}
       {showSuccessMessage && (

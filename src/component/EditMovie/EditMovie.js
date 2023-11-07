@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Dialog from "../Dialog";
 import MovieForm from "../MovieForm";
-import "../movie.css";
-import "../SuccessMessage/successMessage.css";
-import { editMovieMessage } from "../../constants";
+import "./EditMovie.css"; // Assuming the stylesheet is named "EditMovie.css"
+import { editMovieMessage, editDialogHeader } from "../../constants";
 
 function EditMovie() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -28,7 +27,7 @@ function EditMovie() {
   return (
     <div className="movie-container">
       <button className="add-movie-button" onClick={openFormDialog}>
-        Edit Movie
+        {editDialogHeader}
       </button>
       {isFormOpen && (
         <Dialog title="Edit Movie" onClose={closeFormDialog}>
