@@ -3,7 +3,7 @@ import Dialog from "../Dialog/Dialog";
 import MovieForm from "../MovieForm/MovieForm";
 import "../../styles/SuccessMessage.css";
 import "./AddMovie.css";
-import { addSuccessMessage, addMovieButton } from '../../constants';
+import { addSuccessMessage, addMovieButton, incrementButton } from '../../constants';
 
 const AddMovie = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -28,7 +28,7 @@ const AddMovie = () => {
   return (
     <div>
       <button className="add-movie-button" onClick={openFormDialog}>
-        {addMovieButton}
+        {incrementButton + " " + addMovieButton}
       </button>
       {isFormOpen && (
         <Dialog title="Add Movie" onClose={closeFormDialog}>

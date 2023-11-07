@@ -5,7 +5,6 @@ import "./Dialog.css";
 import closeButton from '../../assets/close_button.png';
 
 const Dialog = ({ title, children, onClose }) => (
-  <FocusTrap>
     <div className="dialog-overlay">
       <div className="dialog">
         <div className="dialog-header">
@@ -17,7 +16,6 @@ const Dialog = ({ title, children, onClose }) => (
         <div className="dialog-body">{children}</div>
       </div>
     </div>
-  </FocusTrap>
 );
 
 Dialog.propTypes = {

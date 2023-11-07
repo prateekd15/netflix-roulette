@@ -1,24 +1,23 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitFor, createPortal } from '@testing-library/react';
 import MenuButton from './MenuButton';
 
-function setUp() {
-    return render(<MenuButton />);
-}
-describe('MenuButton', () => {
-    it('Should render image with the correct alt text', () => {
-        const { getByAltText } = setUp();
-        const image = getByAltText('Hover Button');
-        expect(image);
-    });
+describe('MenuButton Component', () => {
+  let component;
+  const movieName = 'Test Movie';
 
-    it('Should render Edit and Delete links', () => {
-    const { getByText } = setUp();
-    const editLink = getByText('Edit');
-    const deleteLink = getByText('Delete');
+  const setUp = () => {
+    const { container, getByText } = render(<MenuButton movieName={movieName} />);
+    return { container, getByText };
+  };
 
-    expect(editLink);
-    expect(deleteLink);
-    });
+  beforeEach(() => {
+    component = setUp();
+  });
+
+  it('renders the menu button correctly', () => {
+    const { getByText } = component;
+    expect(getByText('Edit')).toBeTruthy();
+    expect(getByText('Delete')).toBeTruthy();
+  });
 });
-

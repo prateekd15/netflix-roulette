@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Dialog from "../Dialog";
-import MovieForm from "../MovieForm";
-import "./EditMovie.css"; // Assuming the stylesheet is named "EditMovie.css"
+import Dialog from "../Dialog/Dialog";
+import MovieForm from "../MovieForm/MovieForm";
 import { editMovieMessage, editDialogHeader } from "../../constants";
 
 function EditMovie() {
