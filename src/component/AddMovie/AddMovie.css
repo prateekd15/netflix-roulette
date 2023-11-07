@@ -6,7 +6,7 @@
     background: rgba(96, 96, 96, 0.68);
     text-emphasis-color: inherit;
     cursor: pointer;
-
+    border: none;
     color: #F65261;
     text-align: right;
     font-family: sans-serif;

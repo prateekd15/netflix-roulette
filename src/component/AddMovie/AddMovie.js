@@ -3,6 +3,7 @@ import Dialog from "../Dialog/Dialog";
 import MovieForm from "../MovieForm/MovieForm";
 import "../../styles/SuccessMessage.css";
 import "./AddMovie.css";
+import { addSuccessMessage, addMovieButton } from '../../constants';
 
 const AddMovie = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -27,7 +28,7 @@ const AddMovie = () => {
   return (
     <div>
       <button className="add-movie-button" onClick={openFormDialog}>
-        + Add Movie
+        {addMovieButton}
       </button>
       {isFormOpen && 
       (
@@ -41,7 +42,7 @@ const AddMovie = () => {
       )}
       {showSuccessMessage && (
         <div className="success-overlay">
-          <div className="success-dialog">Movie added successfully!</div>
+          <div className="success-dialog">{addSuccessMessage}</div>
         </div>
       )}
     </div>

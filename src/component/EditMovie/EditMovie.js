@@ -1,61 +1,47 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Dialog from "../Dialog";
 import MovieForm from "../MovieForm";
 import "../movie.css";
 import "../SuccessMessage/successMessage.css";
+import { editMovieMessage } from "../../constants";
 
-class EditMovie extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isFormOpen: false,
-      showSuccessMessage: false,
-    };
-  }
+function EditMovie() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  closeFormDialog = () => {
-    this.setState({ isFormOpen: false });
+  const openFormDialog = () => {
+    setIsFormOpen(true);
   };
 
-  openFormDialog = () => {
-    this.setState({ isFormOpen: true });
+  const closeFormDialog = () => {
+    setIsFormOpen(false);
   };
 
-  closeFormDialog = () => {
-    this.setState({ isFormOpen: false });
-  };
-
-  handleFormSubmit = (formData) => {
-    this.setState({ showSuccessMessage: true });
-    this.closeFormDialog();
+  const handleFormSubmit = (formData) => {
+    setShowSuccessMessage(true);
+    closeFormDialog();
     setTimeout(() => {
-      this.setState({ showSuccessMessage: false });
+      setShowSuccessMessage(false);
     }, 2000);
   };
 
-  render() {
-    return (
-      <div className="movie-container">
-        <button className="add-movie-button" onClick={this.openFormDialog}>
-          Edit Movie
-        </button>
-        {this.state.isFormOpen && (
-          <Dialog title="Edit Movie" onClose={this.closeFormDialog}>
-            <MovieForm
-              onSubmit={this.handleFormSubmit}
-              onClose={this.closeFormDialog}
-            />
-          </Dialog>
-        )}
-        {this.state.showSuccessMessage && (
-          <div className="success-overlay">
-            <div className="success-dialog">Movie edited successfully!</div>
-          </div>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="movie-container">
+      <button className="add-movie-button" onClick={openFormDialog}>
+        Edit Movie
+      </button>
+      {isFormOpen && (
+        <Dialog title="Edit Movie" onClose={closeFormDialog}>
+          <MovieForm onSubmit={handleFormSubmit} onClose={closeFormDialog} />
+        </Dialog>
+      )}
+      {showSuccessMessage && (
+        <div className="success-overlay">
+          <div className="success-dialog">{editMovieMessage}</div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default EditMovie;
-

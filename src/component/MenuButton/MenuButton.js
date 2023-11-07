@@ -6,6 +6,7 @@ import MovieForm from '../MovieForm/MovieForm';
 import Dialog from '../Dialog/Dialog';
 import { createPortal } from 'react-dom';
 import '../../styles/SuccessMessage.css';
+import { deleteMovieMessage, editMovieMessage, editButton, deleteButton } from "../../constants";
 
 function MenuButton(props) {
 
@@ -46,55 +47,55 @@ function MenuButton(props) {
     }, 2000);
   };
 
-    return (
-        <div className='movie-tile_hover-button'>
-            <img src={hoverButton} alt='Hover Button' />
-            <div className="movie-tile_menu-content">
-                <a onClick={handleEdit} className='movie-tile_menu-link'>Edit</a>
-                <a onClick={handleDelete} className='movie-tile_menu-link'>Delete</a>
-            </div>
+  return (
+    <div className='movie-tile_hover-button'>
+      <img src={hoverButton} alt='Hover Button' />
+      <div className="movie-tile_menu-content">
+        <a onClick={handleEdit} className='movie-tile_menu-link'>{editButton}</a>
+        <a onClick={handleDelete} className='movie-tile_menu-link'>{deleteButton}</a>
+      </div>
 
-            {showConfirmationDialog && (
-                <>{createPortal(<DeleteDialog
-                    show={showConfirmationDialog}
-                    onClose={handleCloseConfirmationDialog}
-                    onConfirm={handleConfirmDelete}
-                    title={props.movieName}
-                />, document.body)}</>
-            )}
-            {showEditDialog && (
-                <>{createPortal(
-					<Dialog title="Edit Movie" onClose={() => setShowEditDialog(false)}>
-                    <MovieForm
-                    initialMovieInfo={props}
-                    onClose={closeEditDialog}
-                    onSubmit={handleEditSubmit}
-                />
-                </Dialog>,
-					document.body
-				)}
-                </>
-                
-            )}
+      {showConfirmationDialog && (
+        <>{createPortal(<DeleteDialog
+          show={showConfirmationDialog}
+          onClose={handleCloseConfirmationDialog}
+          onConfirm={handleConfirmDelete}
+          title={props.movieName}
+        />, document.body)}</>
+      )}
+      {showEditDialog && (
+        <>{createPortal(
+          <Dialog title="Edit Movie" onClose={() => setShowEditDialog(false)}>
+            <MovieForm
+              initialMovieInfo={props}
+              onClose={closeEditDialog}
+              onSubmit={handleEditSubmit}
+            />
+          </Dialog>,
+          document.body
+        )}
+        </>
 
-            {deleted && (
-                <>
-                    {createPortal(
-                        <div className="success-overlay">
-                    <div className="success-dialog">Movie Deleted successfully!</div>
-                </div>,
-                document.body)}
-                </>
-            )}
-            {edited && (
-                <>
-                    {createPortal(<div className="success-overlay">
-                    <div className="success-dialog">Movie Edited successfully!</div>
-                </div>, document.body)}
-                </>
-            )}
-        </div>
-     );
+      )}
+
+      {deleted && (
+        <>
+          {createPortal(
+            <div className="success-overlay">
+              <div className="success-dialog">{deleteMovieMessage}</div>
+            </div>,
+            document.body)}
+        </>
+      )}
+      {edited && (
+        <>
+          {createPortal(<div className="success-overlay">
+            <div className="success-dialog">{editMovieMessage}</div>
+          </div>, document.body)}
+        </>
+      )}
+    </div>
+  );
 }
 
 export default MenuButton;

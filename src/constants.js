@@ -1,2 +1,21 @@
 export const incrementButton = "+";
 export const decrementButton = "-";
+export const addSuccessMessage = "Movie added successfully!";
+export const addMovieButton = "Add Movie";
+export const deleteDialogHeader = "Delete movie";
+export const deleteDialogText = "Are you sure you want to delete this movie?";
+export const deleteMovieMessage = "Movie Deleted successfully!";
+export const confirmMessage = "Confirm"; 
+export const editMovieMessage = "Movie edited successfully!";
+export const editButton = "Edit";
+export const deleteButton = "Delete";
+export const titleLabel = "Title";
+export const releaseYearLabel = "Release Year";
+export const genreLabel = "Genre";
+export const ratingLabel = "Rating";
+export const durationLabel = "Duration";
+export const movieUrlLabel = "Movie URL";
+export const overviewLabel = "Overview";
+export const resetButton = "Reset";
+export const submitButton = "Submit";
+
