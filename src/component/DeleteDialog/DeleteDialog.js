@@ -11,12 +11,13 @@ const DeleteDialog = (props) => {
   }
 
   return (
-    <div className="dialog-overlay">
-      <div className="dialog-content">
-        <h2>Delete movie - {title}</h2>
-        <p>Are you sure you want to delete this movie?</p>
-        <div className="button-container">
-          <button
+    <div className="delete-dialog_overlay-container">
+    <div className="delete-dialog_dialog-overlay">
+      <div className="delete-dialog_dialog-content">
+        <h2 className="delete-dialog_dialog-header">Delete movie</h2>
+        <p className="delete-dialog_dialog-message">Are you sure you want to delete this movie?</p>
+        <div className="delete-dialog_button-container">
+          <button className="delete-dialog_delete_button"
             onClick={() => {
               onConfirm();
               setShowSuccessMessage(true);
@@ -24,7 +25,6 @@ const DeleteDialog = (props) => {
           >
             Confirm
           </button>
-          <button onClick={onClose}>Cancel</button>
         </div>
       </div>
       {showSuccessMessage && (
@@ -32,6 +32,7 @@ const DeleteDialog = (props) => {
           <div className="success-dialog">Movie Deleted successfully!</div>
         </div>
       )}
+    </div>
     </div>
   );
 };

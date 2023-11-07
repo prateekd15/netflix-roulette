@@ -1,34 +1,82 @@
-.dialog-overlay {
+.delete-dialog_dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 536px;
+    height: 322px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 520px;
+    margin-top: 100px;
+}
+
+.delete-dialog_overlay-container {
+
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.dialog-content {
-    background: #fff;
-    padding: 20px;
+.delete-dialog_dialog-content {
+    background: #232323;
+    padding: 40px;
     border-radius: 5px;
-    max-width: 400px;
-    text-align: center;
+    width: 100%;
+    height: 100%;
+    text-align: left;
 }
 
-.button-container {
-    margin-top: 20px;
+.delete-dialog_button-container {
+    margin-top: 20%;
+    margin-left: 60%;
+    align-items: end;
 }
 
-button {
+.delete-dialog_delete_button {
     margin: 0 10px;
-    padding: 8px 20px;
-    background-color: #007bff;
+    padding: 15px 30px;
+    background-color: #F65261;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    color: #FFF;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
 }
 
+.delete-dialog_dialog-message {
+    color: #FFF;
+    text-align: left;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 5%;
+}
+
+.delete-dialog_dialog-header {
+    color: #FFF;
+    font-family: sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
