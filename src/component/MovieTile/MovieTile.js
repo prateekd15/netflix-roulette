@@ -1,7 +1,7 @@
 import './MovieTile.css';
 import MenuButton from '../MenuButton/MenuButton';
 
-function MovieTile({ imageUrl, movieName, releaseYear, genres, onSelect, id}) {
+function MovieTile({ imageUrl, movieName, releaseYear, genres, duration, rating, description, onSelect, id}) {
   console.log("Started rendering movie tile component");
   const commaSeparatedList = genres.join(', ');
   
@@ -11,7 +11,7 @@ function MovieTile({ imageUrl, movieName, releaseYear, genres, onSelect, id}) {
 
   return (
     <div className='movie-tile_outer-container'>
-      <MenuButton />
+      <MenuButton {...{imageUrl, movieName, releaseYear, genres, duration, rating, description, onSelect, id}}/>
       <div className='tile-container' onClick={handleOnClick}>
         <img src={imageUrl} alt={movieName} className='poster' />
         <div className='info-container'>

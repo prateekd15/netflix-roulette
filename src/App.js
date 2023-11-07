@@ -7,6 +7,9 @@ import MovieTile from './component/MovieTile/MovieTile';
 import MovieDetails from './component/MovieDetails/MovieDetails';
 import movies from './temp/Movies.json';
 import SortControl from './component/SortControl/SortControl';
+import MovieForm from './component/MovieForm/MovieForm';
+import AddMovie from './component/AddMovie/AddMovie';
+import DeleteDialog from './component/DeleteDialog/DeleteDialog';
 
 function App() {
   const genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Science Fiction'];
