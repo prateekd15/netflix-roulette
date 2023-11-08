@@ -29,7 +29,7 @@ function MenuButton(props) {
     setShowConfirmationDialog(true);
   };
 
-  const handleConfirmDelete = (confirm) => {
+  const handleConfirmDelete = () => {
     setShowConfirmationDialog(false);
     setDeleted(true);
     setTimeout(() => {
@@ -57,7 +57,6 @@ function MenuButton(props) {
         <DeleteMovie
           onConfirm={handleConfirmDelete}
           onClose={handleCloseConfirmationDialog}
-          title={props.movieName}
         />
       )}
       {showEditDialog && (
