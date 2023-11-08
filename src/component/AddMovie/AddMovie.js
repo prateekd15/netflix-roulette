@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Dialog from "../Dialog/Dialog";
-import MovieForm from "../MovieForm/MovieForm";
-import "../../styles/SuccessMessage.css";
 import "./AddMovie.css";
-import { addSuccessMessage, addMovieButton, incrementButton } from '../../constants';
+import { ADD_SUCCESS_MESSAGE, ADD_MOVIE, INCREMENT_SYMBOL } from '../../constants';
+import UpdateMovie from "../UpdateMovie/UpdateMovie";
+import MessageModal from "../MessageModal/MessageModal";
 
 const AddMovie = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -28,18 +27,18 @@ const AddMovie = () => {
   return (
     <div>
       <button className="add-movie-button" onClick={openFormDialog}>
-        {incrementButton + " " + addMovieButton}
+        {INCREMENT_SYMBOL + " " + ADD_MOVIE}
       </button>
-      {isFormOpen && (
-        <Dialog title="Add Movie" onClose={closeFormDialog}>
-          <MovieForm onSubmit={handleFormSubmit} onClose={closeFormDialog} formType="Add movie" />
-        </Dialog>
-      )}
-      {showSuccessMessage && (
-        <div className="success-overlay">
-          <div className="success-dialog">{addSuccessMessage}</div>
-        </div>
-      )}
+      {isFormOpen &&
+        <UpdateMovie
+          title={ADD_MOVIE}
+          onClose={closeFormDialog}
+          onSubmit={handleFormSubmit}
+        />
+      }
+      {showSuccessMessage &&
+        <MessageModal message={ADD_SUCCESS_MESSAGE} />
+      }
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import "./Counter.css";
-import { incrementButton } from '../../constants.js';
-import { decrementButton } from '../../constants.js'
+import { INCREMENT_SYMBOL, DECREMENT_SYMBOL } from '../../constants.js';
 
 class Counter extends React.Component {
 	constructor(props) {
@@ -46,8 +45,8 @@ class Counter extends React.Component {
 			React.createElement(
 				"div",
 				{ className: "counter__btns" },
-				this.createCounterButton(decrementButton, this.handleDecrement),
-				this.createCounterButton(incrementButton, this.handleIncrement),
+				this.createCounterButton(DECREMENT_SYMBOL, this.handleDecrement),
+				this.createCounterButton(INCREMENT_SYMBOL, this.handleIncrement),
 			)
 		);
 	}

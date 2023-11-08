@@ -1,31 +1,15 @@
 import React, { useState } from "react";
-import Dialog from "../Dialog/Dialog";
 import "./MovieForm.css";
 import {
-  addMovieButton,
-  titleLabel,
-  releaseYearLabel,
-  genreLabel,
-  ratingLabel,
-  durationLabel,
-  movieUrlLabel,
-  overviewLabel,
-  resetButton,
-  submitButton
+  COLUMN_CONFIG,
+  OVERVIEW,
+  RESET,
+  SUBMIT
 } from "../../constants";
 
-const MovieForm = (props) => {
-  const initialMovieInfo = props.initialMovieInfo || {
-    movieName: "",
-    releaseYear: "",
-    imageUrl: "",
-    rating: "",
-    genres: "",
-    duration: "",
-    description: "",
-  };
-
-  const [formData, setFormData] = useState(initialMovieInfo);
+const MovieForm = ({movieInfo, onSubmit }) => {
+ 
+  const [formData, setFormData] = useState(movieInfo);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -36,28 +20,20 @@ const MovieForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (props.onSubmit) {
-      props.onSubmit(formData);
+    if (onSubmit) {
+      onSubmit(formData);
     }
+  };
+
+  const handleReset = () => {
+    setFormData(movieInfo);
   };
 
   return (
     <div className="movie-form_container">
-      <Dialog
-        title={props.modalTitle || addMovieButton}
-        onClose={props.onClose}
-        portalNode={props.portalNode}
-      >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} onReset={handleReset}>
           <div className="movie-form_columns">
-            {[
-              { label: titleLabel, name: "movieName" },
-              { label: releaseYearLabel, name: "releaseYear" },
-              { label: movieUrlLabel, name: "imageUrl" },
-              { label: ratingLabel, name: "rating" },
-              { label: genreLabel, name: "genres" },
-              { label: durationLabel, name: "duration" }
-            ].map(({ label, name }) => (
+            {COLUMN_CONFIG.map(({ label, name }) => (
               <label key={name} className="movie-form_input-label">
                 {label}
                 <input
@@ -71,7 +47,7 @@ const MovieForm = (props) => {
             ))}
           </div>
           <label className="movie-form_input-label movie-form_textarea">
-            {overviewLabel}
+            {OVERVIEW}
             <textarea
               className="wider-input movie-form_input"
               type="text"
@@ -82,14 +58,13 @@ const MovieForm = (props) => {
           </label>
           <div className="movie-form_button-group">
             <button className="movie-form_reset-button" type="reset">
-              {resetButton}
+              {RESET}
             </button>
             <button className="movie-form_submit-button" type="submit">
-              {submitButton}
+              {SUBMIT}
             </button>
           </div>
         </form>
-      </Dialog>
     </div>
   );
 };

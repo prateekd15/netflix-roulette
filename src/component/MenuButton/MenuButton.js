@@ -1,12 +1,10 @@
 import './MenuButton.css';
 import hoverButton from '../../assets/hover-button.png';
 import React, { useState } from 'react';
-import DeleteDialog from '../DeleteDialog/DeleteDialog';
-import MovieForm from '../MovieForm/MovieForm';
-import Dialog from '../Dialog/Dialog';
-import { createPortal } from 'react-dom';
-import '../../styles/SuccessMessage.css';
-import { deleteMovieMessage, editMovieMessage, editButton, deleteButton } from "../../constants";
+import DeleteMovie from '../DeleteDialog/DeleteMovie';
+import { DELETE_MOVIE_MESSAGE, EDIT_MOVIE_MESSAGE, EDIT, DELETE, EDIT_MOVIE } from "../../constants";
+import MessageModal from '../MessageModal/MessageModal';
+import UpdateMovie from '../UpdateMovie/UpdateMovie'; 
 
 function MenuButton(props) {
 
@@ -51,48 +49,31 @@ function MenuButton(props) {
     <div className='movie-tile_hover-button'>
       <img src={hoverButton} alt='Hover Button' />
       <div className="movie-tile_menu-content">
-        <a onClick={handleEdit} className='movie-tile_menu-link'>{editButton}</a>
-        <a onClick={handleDelete} className='movie-tile_menu-link'>{deleteButton}</a>
+        <a onClick={handleEdit} className='movie-tile_menu-link'>{EDIT}</a>
+        <a onClick={handleDelete} className='movie-tile_menu-link'>{DELETE}</a>
       </div>
 
       {showConfirmationDialog && (
-        <>{createPortal(<DeleteDialog
-          show={showConfirmationDialog}
-          onClose={handleCloseConfirmationDialog}
+        <DeleteMovie
           onConfirm={handleConfirmDelete}
+          onClose={handleCloseConfirmationDialog}
           title={props.movieName}
-        />, document.body)}</>
+        />
       )}
       {showEditDialog && (
-        <>{createPortal(
-          <Dialog title="Edit Movie" onClose={() => setShowEditDialog(false)}>
-            <MovieForm
-              initialMovieInfo={props}
-              onClose={closeEditDialog}
-              onSubmit={handleEditSubmit}
-            />
-          </Dialog>,
-          document.body
-        )}
-        </>
-
+        <UpdateMovie 
+          initialMovieInfo={props}
+          onClose={closeEditDialog}
+          onSubmit={handleEditSubmit}
+          title={EDIT_MOVIE}
+        />
       )}
 
       {deleted && (
-        <>
-          {createPortal(
-            <div className="success-overlay">
-              <div className="success-dialog">{deleteMovieMessage}</div>
-            </div>,
-            document.body)}
-        </>
+        <MessageModal message={DELETE_MOVIE_MESSAGE} />
       )}
       {edited && (
-        <>
-          {createPortal(<div className="success-overlay">
-            <div className="success-dialog">{editMovieMessage}</div>
-          </div>, document.body)}
-        </>
+        <MessageModal message={EDIT_MOVIE_MESSAGE} />
       )}
     </div>
   );

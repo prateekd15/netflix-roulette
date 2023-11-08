@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./SearchForm.css";
 import searchImage from "../../assets/searchbox.png";
 import AddMovie from "../AddMovie/AddMovie";
+import {SEARCH} from "../../constants";
 
 const SearchForm = ({ initialQuery, onSearch }) => {
   const [searchTerm, setSearchTerm] = useState(initialQuery);
@@ -38,7 +39,7 @@ const SearchForm = ({ initialQuery, onSearch }) => {
           onKeyDown={handleKeyDown}
         />
         <button type="button" onClick={search} className="search-form__button">
-          SEARCH
+          {SEARCH}
         </button>
       </div>
     </div>

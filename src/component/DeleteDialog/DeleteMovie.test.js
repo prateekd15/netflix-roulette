@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import DeleteDialog from './DeleteDialog';
+import DeleteMovie from './DeleteMovie';
 
-describe('DeleteDialog Component', () => {
+describe('DeleteMovie Component', () => {
   let component;
 
   const setUp = (props) => {
-    const { container, getByText } = render(<DeleteDialog {...props} />);
+    const { container, getByText } = render(<DeleteMovie {...props} />);
     return { container, getByText };
   };
 

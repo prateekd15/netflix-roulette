@@ -40,8 +40,8 @@ describe('MovieForm Component', () => {
 
   it('submits the form when "Submit" is clicked', () => {
     const { getByText } = component;
-    const submitButton = getByText('Submit');
-    fireEvent.click(submitButton);
+    const SUBMIT = getByText('Submit');
+    fireEvent.click(SUBMIT);
 
     expect(mockOnSubmit).toHaveBeenCalledTimes(1);
   });
