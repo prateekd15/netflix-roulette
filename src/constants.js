@@ -13,7 +13,7 @@ export const EDIT_MOVIE = "Edit Movie";
 export const SEARCH = "Search";
 export const SUBMIT = "Submit";
 export const RESET = "Reset";
-
+export const NETFLIX_ROULETTE = "netflixroulette";
 export const TITLE = "Title";
 export const RELEASE_YEAR = "Release Year";
 export const GENRE = "Genre";

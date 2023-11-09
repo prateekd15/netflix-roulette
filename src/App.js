@@ -7,7 +7,7 @@ import MovieTile from './component/MovieTile/MovieTile';
 import MovieDetails from './component/MovieDetails/MovieDetails';
 import movies from './temp/Movies.json';
 import SortControl from './component/SortControl/SortControl';
-import { releaseDateLabel, titleLabel } from './constants';
+import { RELEASE_YEAR, TITLE } from './constants';
 
 function App() {
   const genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Science Fiction'];
@@ -18,7 +18,7 @@ function App() {
     setSelectedGenre(genre);
   };
 
-  const sortFilters = [releaseDateLabel, titleLabel];
+  const sortFilters = [RELEASE_YEAR, TITLE];
   
   const [selectedFilter, setSelectedFilter] = useState(sortFilters[0]);
   const handleChangeSortFilter = (filter) => {

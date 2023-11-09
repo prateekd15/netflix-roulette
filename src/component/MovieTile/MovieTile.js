@@ -8,7 +8,7 @@ function MovieTile({ imageUrl, movieName, releaseYear, genres, duration, rating,
   return (
     <div className='movie-tile_outer-container'>
       <MenuButton {...{imageUrl, movieName, releaseYear, genres, duration, rating, description}}/>
-      <div className='tile-container' onClick={handleOnClick}>
+      <div className='tile-container' onClick={() => onSelect(id)}>
         <img src={imageUrl} alt={movieName} className='poster' />
         <div className='info-container'>
           <div className='title-row'>
