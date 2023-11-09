@@ -9,7 +9,6 @@ const DeleteMovie = ({ onConfirm, onClose }) => {
 
   const handleConfirm = () => {
     onConfirm();
-    setShowSuccessMessage(true);
   };
 
   return (
@@ -23,11 +22,6 @@ const DeleteMovie = ({ onConfirm, onClose }) => {
             </button>
           </div>
         </div>
-        {showSuccessMessage && (
-          <div className="success-overlay">
-            <div className="success-dialog">{DELETE_MOVIE_MESSAGE}</div>
-          </div>
-        )}
       </Dialog>,
       document.body
     )}
