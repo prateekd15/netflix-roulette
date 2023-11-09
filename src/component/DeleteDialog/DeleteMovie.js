@@ -5,7 +5,6 @@ import Dialog from "../Dialog/Dialog";
 import { createPortal } from 'react-dom';
 
 const DeleteMovie = ({ onConfirm, onClose }) => {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleConfirm = () => {
     onConfirm();
