@@ -10,11 +10,13 @@ function EditMovie({initialMovieInfo, onClose, onSubmit, title}) {
     movieName: "",
     releaseYear: "",
     imageUrl: "",
-    rating: "",
+    vote_average: "",
     genres: "",
-    duration: "",
-    description: "",
+    runtime: "",
+    overview: "",
   };
+  console.log("Logging UpdateMovie props ", movieInfo);
+  console.log("Logging UpdateMovie props ", initialMovieInfo);
   return (
     <>{createPortal(
       <Dialog title={title} onClose={onClose}>

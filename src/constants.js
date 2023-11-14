@@ -23,21 +23,26 @@ export const MOVIE_URL = "Movie URL";
 export const OVERVIEW = "Overview";
 export const FIND_YOUR_MOVIE = "FIND YOUR MOVIE";
 
-export const MOVIE_NAME = "movieName";
-export const RELEASE_YEAR_NAME = "releaseYear";
+export const TITLE_NAME = "title";
+export const RELEASE_DATE_NAME = "release_date";
 export const GENRES_NAME = "genres";
-export const RATING_NAME = "rating";
-export const DURATION_NAME = "duration";
-export const IMAGE_URL_NAME = "imageUrl";
-export const GENRES = ["Action", "Comedy", "Horror", "Romance" ,"Thriller"];
+export const RATING_NAME = "vote_average";
+export const DURATION_NAME = "runtime";
+export const IMAGE_URL_NAME = "poster_path";
+export const GENRES = ["All", "Action", "Comedy", "Horror", "Romance" ,"Thriller"];
+export const ALL = "All"
 export const COLUMN_CONFIG = [
-  { label: TITLE, name: MOVIE_NAME },
-  { label: RELEASE_YEAR, name: RELEASE_YEAR_NAME },
+  { label: TITLE, name: TITLE_NAME },
+  { label: RELEASE_YEAR, name: RELEASE_DATE_NAME },
   { label: MOVIE_URL, name: IMAGE_URL_NAME },
   { label: RATING, name: RATING_NAME },
   { label: GENRE, name: GENRES_NAME },
   { label: DURATION, name: DURATION_NAME }
 ];
 
-export const RELEASE_YEAR_FILTER = "release_year";
-export const TITLE_FILTER = "title"
+export const RELEASE_DATE_FILTER = "release_date";
+export const TITLE_FILTER = "title";
+export const LOAD_MORE = "Load More";
+export const LIMIT = 16;
+export const PREVIOUS_PAGE = "Previous Page";
+export const NEXT_PAGE = "Next Page";

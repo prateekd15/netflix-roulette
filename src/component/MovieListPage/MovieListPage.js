@@ -5,8 +5,18 @@ import SearchForm from "../SearchForm/SearchForm";
 import GenreSelect from '../GenreSelect/GenreSelect';
 import MovieTile from '../MovieTile/MovieTile';
 import SortControl from '../SortControl/SortControl';
-import { RELEASE_YEAR, TITLE, GENRES, TITLE_FILTER, RELEASE_YEAR_FILTER } from '../../constants';
+import { 
+    RELEASE_YEAR, 
+    TITLE, 
+    GENRES, 
+    TITLE_FILTER, 
+    RELEASE_DATE_FILTER, 
+    ALL, 
+    NEXT_PAGE, 
+    PREVIOUS_PAGE, 
+    LIMIT } from '../../constants';
 import MovieDetails from "../MovieDetails/MovieDetails";
+import { BASE_URL, MOVIES_URL } from "../../utils/urls";
 
 function MovieListPage({ }) {
 
@@ -18,20 +28,18 @@ function MovieListPage({ }) {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [offset, setOffset] = useState(0);
-    const limit = 12;
     const [totalAmount, setTotalAmount] = useState(0)
 
     function handleGenreSelect(selectedGenre) {
+        setSearchQuery(null);
         setActiveGenre(selectedGenre);
-
-        //TODO write code to make API call based on selected genre.
-        //Set the result in the below method
-        // setMovieList(movies);
+        setOffset(0);
     }
 
     function handleChangeSortFilter(filter) {
-        console.log("Selected Filter "+ filter);
+        setSearchQuery(null);
         setSelectedFilter(filter);
+        setOffset(0);
     }
 
     const handleSelectedMovie = (movie) => {
@@ -40,11 +48,21 @@ function MovieListPage({ }) {
 
     const handleSearch = (searchedMovie) => {
         setSearchQuery(searchedMovie);
-
+        setActiveGenre(null);
+        setOffset(0);
     }
 
+    const handleNextPage = () => {
+        setOffset(offset + LIMIT);
+      };
+    
+      const handlePrevPage = () => {
+        if (offset >= LIMIT) {
+          setOffset(offset - LIMIT);
+        }
+      };
+
     useEffect(() => {
-        console.log('use effect triggered');
         const abortController = new AbortController();
         const signal = abortController.signal;
 
@@ -54,22 +72,18 @@ function MovieListPage({ }) {
                     search: searchQuery,
                     searchBy: searchQuery ? 'title' : 'genres',
                     offset: offset,
-                    limit: limit,
-                    sortBy: selectedFilter === RELEASE_YEAR ? RELEASE_YEAR_FILTER : TITLE_FILTER,
-                    sortOrder: 'asc',
-                    filter: searchQuery ? null : activeGenre,
+                    limit: LIMIT,
+                    sortBy: selectedFilter === RELEASE_YEAR ? RELEASE_DATE_FILTER : TITLE_FILTER,
+                    sortOrder: 'desc',
+                    filter: searchQuery ? null : (activeGenre === ALL ? null : activeGenre),
                 };
-                console.log("calling backend to get data");
-                const response = await axios.get('http://localhost:4000/movies', {
+                const response = await axios.get(BASE_URL + MOVIES_URL, {
                     params,
                     signal,
                 });
-                console.log('params:', params);
-                console.log('response:', response);
 
                 setMovieList(response.data.data);
                 setTotalAmount(response.data.totalAmount);
-                console.log('totalAmount' + totalAmount);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -84,7 +98,7 @@ function MovieListPage({ }) {
         <>  
             {selectedMovie == null ? 
                 <SearchForm onSearch={handleSearch} /> :
-                <MovieDetails {...selectedMovie}/>
+                <MovieDetails {...selectedMovie} onSearchSelect={handleSelectedMovie}/>
             }
             
             <div className='genre-sort-control'>
@@ -99,6 +113,10 @@ function MovieListPage({ }) {
                                 <MovieTile {...item} onSelect={handleSelectedMovie} />
                             </div>)
                     })};
+                </div>
+                <div className="movie-list-page_pagination_container">
+                    <button className="movie-list-page_load_button" onClick={handlePrevPage}>{PREVIOUS_PAGE}</button>
+                    <button className="movie-list-page_load_button" onClick={handleNextPage}>{NEXT_PAGE}</button>
                 </div>
             </div>
         </>

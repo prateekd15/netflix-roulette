@@ -11,3 +11,21 @@
     padding-left: 10px;
     padding-right: 35px;
   }
+
+  .movie-list-page_load_button {
+    padding-left: 8px;
+    border: 1px solid #F65261;
+    color: #F65261;
+    background-color: #232323;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-left: 10px;
+    height: 50px;
+    margin-bottom: 30px;
+  }
+
+  .movie-list-page_pagination_container {
+    display: flex;
+    justify-content: space-between;
+  }

@@ -15,7 +15,6 @@ function App() {
   
   const [selectedGenre, setSelectedGenre] = useState('Action');
   const handleGenreSelect = (genre) => {
-    console.log("Selecting " + genre)
     setSelectedGenre(genre);
   };
 
@@ -36,22 +35,6 @@ function App() {
   }
   
   return (
-    // <>
-    //   <Counter initialValue={15} />
-    //   <SearchForm onSearch={handleSearch} initialQuery="Harry Potter and the Deathly Hallows - Part 2" />
-    //   <div className='temp-movie-details'>
-    //     <MovieDetails {...movies[movieDetailsIndex]} />
-    //   </div>
-    //   <div className='temp-genre-select'>
-    //     <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
-    //     <SortControl sortFilters={sortFilters} selectedFilter={selectedFilter} onSelect={handleChangeSortFilter}/>
-    //   </div>
-    //   <div className='temp-movie-tile'>
-    //     {movies.map((item) => {
-    //       return <MovieTile {...item} key={item.id} onSelect={handleMovieSelectIndex}/>
-    //     })};
-    //   </div>
-    // </>
     <MovieListPage />
   );
 }
