@@ -21,6 +21,7 @@ export const RATING = "Rating";
 export const DURATION = "Duration";
 export const MOVIE_URL = "Movie URL";
 export const OVERVIEW = "Overview";
+export const FIND_YOUR_MOVIE = "FIND YOUR MOVIE";
 
 export const MOVIE_NAME = "movieName";
 export const RELEASE_YEAR_NAME = "releaseYear";
@@ -28,7 +29,7 @@ export const GENRES_NAME = "genres";
 export const RATING_NAME = "rating";
 export const DURATION_NAME = "duration";
 export const IMAGE_URL_NAME = "imageUrl";
-
+export const GENRES = ["Action", "Comedy", "Horror", "Romance" ,"Thriller"];
 export const COLUMN_CONFIG = [
   { label: TITLE, name: MOVIE_NAME },
   { label: RELEASE_YEAR, name: RELEASE_YEAR_NAME },
@@ -37,3 +38,6 @@ export const COLUMN_CONFIG = [
   { label: GENRE, name: GENRES_NAME },
   { label: DURATION, name: DURATION_NAME }
 ];
+
+export const RELEASE_YEAR_FILTER = "release_year";
+export const TITLE_FILTER = "title"

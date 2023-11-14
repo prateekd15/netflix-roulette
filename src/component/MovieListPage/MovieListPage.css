@@ -1,0 +1,13 @@
+.genre-sort-control {
+    background-color: #232323;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 15px;
+  }
+
+  .movie_list-movie-tile-container {
+    background-color: #232323;
+    padding-left: 10px;
+    padding-right: 35px;
+  }
