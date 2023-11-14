@@ -1,7 +1,7 @@
 import React from 'react';
 import './MovieDetails.css';
 import searchLogo from '../../assets/search_logo.png';
-import { applicationTitle } from '../../constants';
+import { NETFLIX_ROULETTE } from '../../constants';
 
 function MovieDetails({
   genres,
@@ -17,7 +17,7 @@ function MovieDetails({
   return (
     <div className="movie-details_outer-container">
       <div className="movie-details_title-row">
-        <span className="movie-details_title">{applicationTitle}</span>
+        <span className="movie-details_title">{NETFLIX_ROULETTE}</span>
         <img src={searchLogo} alt="Search Logo" />
       </div>
       <div className="movie-details_inner">
