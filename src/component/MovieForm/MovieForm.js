@@ -51,8 +51,8 @@ const MovieForm = ({movieInfo, onSubmit }) => {
             <textarea
               className="wider-input movie-form_input"
               type="text"
-              name="description"
-              value={formData.description}
+              name="overview"
+              value={formData.overview}
               onChange={handleInputChange}
             />
           </label>

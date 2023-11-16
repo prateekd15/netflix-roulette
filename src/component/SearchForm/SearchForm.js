@@ -3,17 +3,19 @@ import "./SearchForm.css";
 import searchImage from "../../assets/searchbox.png";
 import AddMovie from "../AddMovie/AddMovie";
 import {SEARCH} from "../../constants";
+import {FIND_YOUR_MOVIE} from "../../constants";
 
 const SearchForm = ({ initialQuery, onSearch }) => {
   const [searchTerm, setSearchTerm] = useState(initialQuery);
 
   const search = () => {
     onSearch(searchTerm);
+    setSearchTerm("");
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      onSearch(searchTerm);
+      search();
     }
   };
 
@@ -26,9 +28,11 @@ const SearchForm = ({ initialQuery, onSearch }) => {
       <div className="bg-image">
         <img src={searchImage} alt="search background image" className="search-form_image" />
       </div>
-      <div id="search-form_add-movie_div" className="search-form_add-movie">
+      <div id="search-form_add-movie_div" className="search-form_add-title">
+        <span className='search-form_title'>netflixroulette</span>
         <AddMovie />
       </div>
+      <span className="search-form_text">{FIND_YOUR_MOVIE}</span>
       <div className="search-form">
         <input
           className="search-form-input"

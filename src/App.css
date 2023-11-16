@@ -37,12 +37,6 @@
   }
 }
 
-.temp-movie-tile {
-  background-color: #232323;
-  display: flex;
-  justify-content: space-evenly;
-}
-
 .temp-genre-select {
   background-color: #232323;
   display: flex;

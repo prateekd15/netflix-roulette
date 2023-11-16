@@ -114,3 +114,8 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.movie_details_search-button {
+    border: none;
+    background-color: #232323;
+}
