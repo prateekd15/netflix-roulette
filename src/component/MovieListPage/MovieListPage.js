@@ -5,18 +5,20 @@ import SearchForm from "../SearchForm/SearchForm";
 import GenreSelect from '../GenreSelect/GenreSelect';
 import MovieTile from '../MovieTile/MovieTile';
 import SortControl from '../SortControl/SortControl';
-import { 
-    RELEASE_YEAR, 
-    TITLE, 
-    GENRES, 
-    TITLE_FILTER, 
-    RELEASE_DATE_FILTER, 
-    ALL, 
-    NEXT_PAGE, 
-    PREVIOUS_PAGE, 
-    LIMIT } from '../../constants';
+import {
+    RELEASE_YEAR,
+    TITLE,
+    GENRES,
+    TITLE_FILTER,
+    RELEASE_DATE_FILTER,
+    ALL,
+    NEXT_PAGE,
+    PREVIOUS_PAGE,
+    LIMIT
+} from '../../constants';
 import MovieDetails from "../MovieDetails/MovieDetails";
 import { BASE_URL, MOVIES_URL } from "../../utils/urls";
+import { useSearchParams, useParams } from 'react-router-dom';
 
 function MovieListPage({ }) {
 
@@ -30,6 +32,9 @@ function MovieListPage({ }) {
     const [offset, setOffset] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0)
 
+    const [searchParams] = useSearchParams();
+    const { movieIdParam } = useParams();
+
     function handleGenreSelect(selectedGenre) {
         setSearchQuery(null);
         setActiveGenre(selectedGenre);
@@ -37,13 +42,17 @@ function MovieListPage({ }) {
     }
 
     function handleChangeSortFilter(filter) {
+        console.log("Called MovieListPage handleChangeSortFilter with value " + filter);
         setSearchQuery(null);
         setSelectedFilter(filter);
         setOffset(0);
     }
 
     const handleSelectedMovie = (movie) => {
+        const movieId = (movie == null) ? null : movie.id;
+        setParamsInURL(movieId)
         setSelectedMovie(movie);
+        
     }
 
     const handleSearch = (searchedMovie) => {
@@ -54,14 +63,41 @@ function MovieListPage({ }) {
 
     const handleNextPage = () => {
         setOffset(offset + LIMIT);
-      };
-    
-      const handlePrevPage = () => {
-        if (offset >= LIMIT) {
-          setOffset(offset - LIMIT);
-        }
-      };
+    };
 
+    const handlePrevPage = () => {
+        if (offset >= LIMIT) {
+            setOffset(offset - LIMIT);
+        }
+    };
+
+    //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
+    useEffect(() => {
+        const fetchMovieDetails = async () => {
+            if (movieIdParam) {
+                try {
+                    const response = await axios.get(`http://localhost:4000/movies/${movieIdParam}`);
+                    setSelectedMovie(response.data);
+                } catch (error) {
+                    console.error('Error fetching movie details:', error);
+                    setSelectedMovie(null);
+                }
+            }
+        };
+
+        fetchMovieDetails();
+    }, [movieIdParam]);
+
+    //Used to fetch the queryParams from the URL
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams);
+        setSearchQuery(params.get('query') || '');
+        setActiveGenre(params.get('genre') || GENRES[0]);
+        setSelectedFilter(params.get('sortBy') || sortFilters[0]);
+        setOffset(parseInt(params.get('offset')) || 0);
+    }, [searchParams]);
+
+    //Used to fetch movies based on default params if queryparams and movieId are absent 
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
@@ -84,6 +120,7 @@ function MovieListPage({ }) {
 
                 setMovieList(response.data.data);
                 setTotalAmount(response.data.totalAmount);
+                setParamsInURL(movieIdParam);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -94,13 +131,32 @@ function MovieListPage({ }) {
         return () => abortController.abort();
     }, [searchQuery, selectedFilter, activeGenre, offset]);
 
-    return (
-        <>  
-            {selectedMovie == null ? 
-                <SearchForm onSearch={handleSearch} /> :
-                <MovieDetails {...selectedMovie} onSearchSelect={handleSelectedMovie}/>
+    //Used to set the currently selected movieId in the URL
+    useEffect(() => {
+        if(selectedMovie != null) {
+            setParamsInURL(selectedMovie.id)
+        }
+    }, [selectedMovie])
+
+    function setParamsInURL(id) {
+        const params = new URLSearchParams();
+            if (searchQuery) params.set('query', searchQuery);
+            if (activeGenre) params.set('genre', activeGenre);
+            if (selectedFilter) params.set('sortBy', selectedFilter);
+            params.set('offset', offset.toString());
+            if (id) {
+                window.history.pushState({}, '', `/${id}?${params.toString()}`);
+            } else {
+                window.history.pushState({}, '', `/?${params.toString()}`);
             }
-            
+    }
+    return (
+        <>
+            {selectedMovie == null ?
+                <SearchForm onSearch={handleSearch} /> :
+                <MovieDetails {...selectedMovie} onSearchSelect={handleSelectedMovie} />
+            }
+
             <div className='genre-sort-control'>
                 <GenreSelect genres={GENRES} selectedGenre={activeGenre} onSelect={handleGenreSelect} />
                 <SortControl sortFilters={sortFilters} selectedFilter={selectedFilter} onSelect={handleChangeSortFilter} />

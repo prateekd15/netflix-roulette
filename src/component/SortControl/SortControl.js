@@ -2,8 +2,8 @@ import './SortControl.css';
 
 function SortControl({ sortFilters, selectedFilter, onSelect }) {
 	const handleChange = (event) => {
-		const selectedGenre = event.target.value;
-		onSelect(selectedGenre);
+		console.log("SortControl handleChange called with value ", event);
+		onSelect(event.target.value);
 	  };
 
 	return (
@@ -12,9 +12,10 @@ function SortControl({ sortFilters, selectedFilter, onSelect }) {
 		<label className="select">
 			<select
 				id="sort-control_select"
-				onChange={handleChange}>
+				onChange={handleChange}
+				value={selectedFilter}>
 					{sortFilters.map((sort) => (
-					<option key={sort} value={selectedFilter}>
+					<option key={sort} value={sort}>
 						{sort}
 					</option>
 				))}
