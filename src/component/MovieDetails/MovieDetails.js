@@ -3,6 +3,7 @@ import './MovieDetails.css';
 import searchLogo from '../../assets/search_logo.png';
 import { NETFLIX_ROULETTE } from '../../constants';
 import { convertToHoursAndMinutes } from '../../utils/Utils'
+import { useNavigate } from 'react-router-dom';
 
 function MovieDetails({
   genres,
@@ -12,12 +13,14 @@ function MovieDetails({
   release_date,
   runtime,
   overview,
-  onSearchSelect
+  onSearchSelect,
+  setParamsInURL
 }) {
 
   const commaSeparatedList = genres ? genres.join(', ') : null;
   const releaseYear = release_date.split('-')[0];
-  
+  const navigate = useNavigate();
+
   return (
     <div className="movie-details_outer-container">
       <div className="movie-details_title-row">

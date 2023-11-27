@@ -6,13 +6,13 @@ import MessageModal from "../MessageModal/MessageModal";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
 
-const AddMovie = ({onDialogStateChange}) => {
+const AddMovie = ({displayAddMovieDialog}) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
 
   const handleFormSubmit = async (formData) => {
-    onDialogStateChange(false)
+    displayAddMovieDialog(false)
     try {
       const response = await axios.post('http://localhost:4000/movies', formData);
       const newMovieId = response.data.id;
@@ -32,7 +32,7 @@ const AddMovie = ({onDialogStateChange}) => {
     <div>
       <UpdateMovie
         title={ADD_MOVIE}
-        onClose={() => onDialogStateChange(false)}
+        onClose={() => displayAddMovieDialog(false)}
         onSubmit={handleFormSubmit}
       />
       {showSuccessMessage &&

@@ -5,7 +5,7 @@ import AddMovie from "../AddMovie/AddMovie";
 import {SEARCH} from "../../constants";
 import {FIND_YOUR_MOVIE, ADD_MOVIE, INCREMENT_SYMBOL } from "../../constants";
 
-const SearchForm = ({ initialQuery, onSearch, onDialogStateChange }) => {
+const SearchForm = ({ initialQuery, onSearch, displayAddMovieDialog }) => {
   const [searchTerm, setSearchTerm] = useState(initialQuery);
   const search = () => {
     onSearch(searchTerm);
@@ -28,7 +28,7 @@ const SearchForm = ({ initialQuery, onSearch, onDialogStateChange }) => {
       </div>
       <div id="search-form_add-movie_div" className="search-form_add-title">
         <span className='search-form_title'>netflixroulette</span>
-        <button className="add-movie-button" onClick={() => onDialogStateChange(true)}>
+        <button className="add-movie-button" onClick={() => displayAddMovieDialog(true)}>
         {INCREMENT_SYMBOL + " " + ADD_MOVIE}
       </button>
       </div>

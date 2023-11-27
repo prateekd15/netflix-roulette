@@ -14,18 +14,26 @@ import {
     ALL,
     NEXT_PAGE,
     PREVIOUS_PAGE,
-    LIMIT
+    LIMIT,
+    EDIT_MOVIE,
+    EDIT_MOVIE_MESSAGE
 } from '../../constants';
 import MovieDetails from "../MovieDetails/MovieDetails";
 import { BASE_URL, MOVIES_URL } from "../../utils/urls";
-import { useSearchParams, useParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useParams, useNavigate, useLocation } from 'react-router-dom';
 import AddMovie from "../AddMovie/AddMovie";
+import UpdateMovie from "../UpdateMovie/UpdateMovie";
+import MessageModal from "../MessageModal/MessageModal";
 
 function MovieListPage({ }) {
 
     const sortFilters = [RELEASE_YEAR, TITLE];
 
     const [isAddMovieDialogVisible, setIsAddMovieDialogVisible] = useState(false);
+    const [isEditMovieDialogVisible, setIsEditMovieDialogVisible] = useState(false);
+    const [isEditSuccessMessageVisible, setIsEditSuccessMessageVisible] = useState(false);
+
+    const [movieToEdit, setMovieToEdit] = useState(null);
     const [selectedFilter, setSelectedFilter] = useState(sortFilters[0]);
     const [activeGenre, setActiveGenre] = useState(GENRES[0]);
     const [movieList, setMovieList] = useState([]);
@@ -33,11 +41,13 @@ function MovieListPage({ }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [offset, setOffset] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0)
-    
+
     const [searchParams] = useSearchParams();
     const { movieIdParam, movieIdForEdit } = useParams();
+
     const navigate = useNavigate();
-    
+    const location = useLocation();
+
     function handleGenreSelect(selectedGenre) {
         setSearchQuery(null);
         setActiveGenre(selectedGenre);
@@ -52,8 +62,8 @@ function MovieListPage({ }) {
 
     const handleSelectedMovie = (movie) => {
         const movieId = (movie == null) ? null : movie.id;
-        setParamsInURL('',movieId)
         setSelectedMovie(movie);
+        setParamsInURL('', movieId);
 
     }
 
@@ -74,12 +84,40 @@ function MovieListPage({ }) {
     };
 
     function handleAddMovieDialogChange(state) {
-        if(state) {
-            setParamsInURL('/new', null);
+        if (state) {
+            setParamsInURL('new', null);
         } else {
             setParamsInURL('', null);
         }
         setIsAddMovieDialogVisible(state);
+    }
+
+    const handleEditSubmit = async (formData) => {
+        try {
+            const response = await axios.put('http://localhost:4000/movies', formData);
+            const urlParams = new URLSearchParams(window.location.search);
+            window.location.reload();
+        } catch (error) {
+            console.error('Error adding movie:', error);
+        }
+        setIsEditMovieDialogVisible(false);
+        setIsEditSuccessMessageVisible(true);
+        setTimeout(() => {
+            setIsEditSuccessMessageVisible(false);
+        }, 2000);
+    };
+
+    async function handleOnEditClick(movieId) {
+        if(!location.pathname.includes("/edit")) {
+            setParamsInURL(`${movieId}/edit`);
+        }
+        try {
+            const response = await axios.get(`http://localhost:4000/movies/${movieId}`);
+            setMovieToEdit(response.data);
+        } catch (error) {
+            console.error('Error fetching movie details:', error);
+        }
+        setIsEditMovieDialogVisible(true);
     }
 
     //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
@@ -94,9 +132,11 @@ function MovieListPage({ }) {
                     setSelectedMovie(null);
                 }
             }
-            else if (window.location.pathname === '/new') {
+            else if (location.pathname === '/new') {
                 handleAddMovieDialogChange(true);
-              }
+            } else if (movieIdForEdit) {
+                handleOnEditClick(movieIdForEdit);
+            }
         };
 
         fetchMovieDetails();
@@ -115,7 +155,7 @@ function MovieListPage({ }) {
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
-
+        let currentPath = location.pathname ? location.pathname : '';
         const fetchData = async () => {
             try {
                 const params = {
@@ -134,7 +174,7 @@ function MovieListPage({ }) {
 
                 setMovieList(response.data.data);
                 setTotalAmount(response.data.totalAmount);
-                setParamsInURL('', movieIdParam);
+                setParamsInURL(currentPath, movieIdParam);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -159,20 +199,33 @@ function MovieListPage({ }) {
         if (selectedFilter) params.set('sortBy', selectedFilter);
         params.set('offset', offset.toString());
         if (id) {
-            window.history.pushState({}, '', `${url}/${id}?${params.toString()}`);
+            navigate(`${url}/${id}?${params.toString()}`);
         } else {
-            window.history.pushState({}, '', `${url}/?${params.toString()}`);
+            navigate(`${url}?${params.toString()}`);
         }
     }
     return (
         <>
             {selectedMovie == null ?
-                <SearchForm onSearch={handleSearch} initialQuery={searchQuery} onDialogStateChange={handleAddMovieDialogChange} /> :
+                <SearchForm onSearch={handleSearch} initialQuery={searchQuery} displayAddMovieDialog={handleAddMovieDialogChange} /> :
                 <MovieDetails {...selectedMovie} onSearchSelect={handleSelectedMovie} />
             }
-            { isAddMovieDialogVisible && 
-                <AddMovie onDialogStateChange={handleAddMovieDialogChange} />
+            {isAddMovieDialogVisible &&
+                <AddMovie displayAddMovieDialog={handleAddMovieDialogChange} />
             }
+
+            {isEditMovieDialogVisible && movieToEdit && (
+                <UpdateMovie
+                    initialMovieInfo={movieToEdit}
+                    onClose={() => setIsEditMovieDialogVisible(false)}
+                    onSubmit={handleEditSubmit}
+                    title={EDIT_MOVIE}
+                />
+            )}
+            {isEditSuccessMessageVisible && (
+                <MessageModal message={EDIT_MOVIE_MESSAGE} />
+            )}
+
             <div className='genre-sort-control'>
                 <GenreSelect genres={GENRES} selectedGenre={activeGenre} onSelect={handleGenreSelect} />
                 <SortControl sortFilters={sortFilters} selectedFilter={selectedFilter} onSelect={handleChangeSortFilter} />
@@ -182,7 +235,7 @@ function MovieListPage({ }) {
                     {movieList.map((item) => {
                         return (
                             <div key={item.id} className="col-lg-3 col-md-6 col-sm-12">
-                                <MovieTile {...item} onSelect={handleSelectedMovie} />
+                                <MovieTile {...item} onSelect={handleSelectedMovie} onEditClick={handleOnEditClick} />
                             </div>)
                     })};
                 </div>
