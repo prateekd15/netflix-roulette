@@ -3,14 +3,12 @@ import "./SearchForm.css";
 import searchImage from "../../assets/searchbox.png";
 import AddMovie from "../AddMovie/AddMovie";
 import {SEARCH} from "../../constants";
-import {FIND_YOUR_MOVIE} from "../../constants";
+import {FIND_YOUR_MOVIE, ADD_MOVIE, INCREMENT_SYMBOL } from "../../constants";
 
-const SearchForm = ({ initialQuery, onSearch }) => {
+const SearchForm = ({ initialQuery, onSearch, onDialogStateChange }) => {
   const [searchTerm, setSearchTerm] = useState(initialQuery);
-
   const search = () => {
     onSearch(searchTerm);
-    setSearchTerm("");
   };
 
   const handleKeyDown = (event) => {
@@ -30,7 +28,9 @@ const SearchForm = ({ initialQuery, onSearch }) => {
       </div>
       <div id="search-form_add-movie_div" className="search-form_add-title">
         <span className='search-form_title'>netflixroulette</span>
-        <AddMovie />
+        <button className="add-movie-button" onClick={() => onDialogStateChange(true)}>
+        {INCREMENT_SYMBOL + " " + ADD_MOVIE}
+      </button>
       </div>
       <span className="search-form_text">{FIND_YOUR_MOVIE}</span>
       <div className="search-form">

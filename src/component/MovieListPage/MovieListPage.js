@@ -18,12 +18,14 @@ import {
 } from '../../constants';
 import MovieDetails from "../MovieDetails/MovieDetails";
 import { BASE_URL, MOVIES_URL } from "../../utils/urls";
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useSearchParams, useParams, useNavigate } from 'react-router-dom';
+import AddMovie from "../AddMovie/AddMovie";
 
 function MovieListPage({ }) {
 
     const sortFilters = [RELEASE_YEAR, TITLE];
 
+    const [isAddMovieDialogVisible, setIsAddMovieDialogVisible] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState(sortFilters[0]);
     const [activeGenre, setActiveGenre] = useState(GENRES[0]);
     const [movieList, setMovieList] = useState([]);
@@ -31,10 +33,11 @@ function MovieListPage({ }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [offset, setOffset] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0)
-
+    
     const [searchParams] = useSearchParams();
-    const { movieIdParam } = useParams();
-
+    const { movieIdParam, movieIdForEdit } = useParams();
+    const navigate = useNavigate();
+    
     function handleGenreSelect(selectedGenre) {
         setSearchQuery(null);
         setActiveGenre(selectedGenre);
@@ -42,7 +45,6 @@ function MovieListPage({ }) {
     }
 
     function handleChangeSortFilter(filter) {
-        console.log("Called MovieListPage handleChangeSortFilter with value " + filter);
         setSearchQuery(null);
         setSelectedFilter(filter);
         setOffset(0);
@@ -50,9 +52,9 @@ function MovieListPage({ }) {
 
     const handleSelectedMovie = (movie) => {
         const movieId = (movie == null) ? null : movie.id;
-        setParamsInURL(movieId)
+        setParamsInURL('',movieId)
         setSelectedMovie(movie);
-        
+
     }
 
     const handleSearch = (searchedMovie) => {
@@ -71,6 +73,15 @@ function MovieListPage({ }) {
         }
     };
 
+    function handleAddMovieDialogChange(state) {
+        if(state) {
+            setParamsInURL('/new', null);
+        } else {
+            setParamsInURL('', null);
+        }
+        setIsAddMovieDialogVisible(state);
+    }
+
     //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -83,10 +94,13 @@ function MovieListPage({ }) {
                     setSelectedMovie(null);
                 }
             }
+            else if (window.location.pathname === '/new') {
+                handleAddMovieDialogChange(true);
+              }
         };
 
         fetchMovieDetails();
-    }, [movieIdParam]);
+    }, [movieIdParam, movieIdForEdit]);
 
     //Used to fetch the queryParams from the URL
     useEffect(() => {
@@ -120,7 +134,7 @@ function MovieListPage({ }) {
 
                 setMovieList(response.data.data);
                 setTotalAmount(response.data.totalAmount);
-                setParamsInURL(movieIdParam);
+                setParamsInURL('', movieIdParam);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -133,30 +147,32 @@ function MovieListPage({ }) {
 
     //Used to set the currently selected movieId in the URL
     useEffect(() => {
-        if(selectedMovie != null) {
-            setParamsInURL(selectedMovie.id)
+        if (selectedMovie != null) {
+            setParamsInURL('', selectedMovie.id)
         }
     }, [selectedMovie])
 
-    function setParamsInURL(id) {
+    function setParamsInURL(url, id) {
         const params = new URLSearchParams();
-            if (searchQuery) params.set('query', searchQuery);
-            if (activeGenre) params.set('genre', activeGenre);
-            if (selectedFilter) params.set('sortBy', selectedFilter);
-            params.set('offset', offset.toString());
-            if (id) {
-                window.history.pushState({}, '', `/${id}?${params.toString()}`);
-            } else {
-                window.history.pushState({}, '', `/?${params.toString()}`);
-            }
+        if (searchQuery) params.set('query', searchQuery);
+        if (activeGenre) params.set('genre', activeGenre);
+        if (selectedFilter) params.set('sortBy', selectedFilter);
+        params.set('offset', offset.toString());
+        if (id) {
+            window.history.pushState({}, '', `${url}/${id}?${params.toString()}`);
+        } else {
+            window.history.pushState({}, '', `${url}/?${params.toString()}`);
+        }
     }
     return (
         <>
             {selectedMovie == null ?
-                <SearchForm onSearch={handleSearch} /> :
+                <SearchForm onSearch={handleSearch} initialQuery={searchQuery} onDialogStateChange={handleAddMovieDialogChange} /> :
                 <MovieDetails {...selectedMovie} onSearchSelect={handleSelectedMovie} />
             }
-
+            { isAddMovieDialogVisible && 
+                <AddMovie onDialogStateChange={handleAddMovieDialogChange} />
+            }
             <div className='genre-sort-control'>
                 <GenreSelect genres={GENRES} selectedGenre={activeGenre} onSelect={handleGenreSelect} />
                 <SortControl sortFilters={sortFilters} selectedFilter={selectedFilter} onSelect={handleChangeSortFilter} />

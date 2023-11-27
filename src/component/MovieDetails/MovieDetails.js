@@ -15,7 +15,7 @@ function MovieDetails({
   onSearchSelect
 }) {
 
-  const commaSeparatedList = genres.join(', ');
+  const commaSeparatedList = genres ? genres.join(', ') : null;
   const releaseYear = release_date.split('-')[0];
   
   return (

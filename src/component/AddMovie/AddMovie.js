@@ -3,22 +3,26 @@ import "./AddMovie.css";
 import { ADD_SUCCESS_MESSAGE, ADD_MOVIE, INCREMENT_SYMBOL } from '../../constants';
 import UpdateMovie from "../UpdateMovie/UpdateMovie";
 import MessageModal from "../MessageModal/MessageModal";
+import axios from "axios";
+import { useNavigate} from "react-router-dom";
 
-const AddMovie = () => {
+const AddMovie = ({onDialogStateChange}) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const navigate = useNavigate();
 
-  const openFormDialog = () => {
-    setIsFormOpen(true);
-  };
-
-  const closeFormDialog = () => {
-    setIsFormOpen(false);
-  };
-
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = async (formData) => {
+    onDialogStateChange(false)
+    try {
+      const response = await axios.post('http://localhost:4000/movies', formData);
+      const newMovieId = response.data.id;
+      const urlParams = new URLSearchParams(window.location.search);
+      const newUrl = `/${newMovieId}?${urlParams.toString()}`;
+      navigate(newUrl);
+    } catch (error) {
+      console.error('Error adding movie:', error);
+    }
     setShowSuccessMessage(true);
-    closeFormDialog();
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 2000);
@@ -26,16 +30,11 @@ const AddMovie = () => {
 
   return (
     <div>
-      <button className="add-movie-button" onClick={openFormDialog}>
-        {INCREMENT_SYMBOL + " " + ADD_MOVIE}
-      </button>
-      {isFormOpen &&
-        <UpdateMovie
-          title={ADD_MOVIE}
-          onClose={closeFormDialog}
-          onSubmit={handleFormSubmit}
-        />
-      }
+      <UpdateMovie
+        title={ADD_MOVIE}
+        onClose={() => onDialogStateChange(false)}
+        onSubmit={handleFormSubmit}
+      />
       {showSuccessMessage &&
         <MessageModal message={ADD_SUCCESS_MESSAGE} />
       }
