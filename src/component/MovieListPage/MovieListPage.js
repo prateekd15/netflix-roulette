@@ -87,7 +87,7 @@ function MovieListPage({ }) {
         if (state) {
             setParamsInURL('new', null);
         } else {
-            setParamsInURL('', null);
+            setParamsInURL('/', null);
         }
         setIsAddMovieDialogVisible(state);
     }
@@ -95,12 +95,10 @@ function MovieListPage({ }) {
     const handleEditSubmit = async (formData) => {
         try {
             const response = await axios.put('http://localhost:4000/movies', formData);
-            const urlParams = new URLSearchParams(window.location.search);
-            window.location.reload();
         } catch (error) {
             console.error('Error adding movie:', error);
         }
-        setIsEditMovieDialogVisible(false);
+        closeEditDialog();
         setIsEditSuccessMessageVisible(true);
         setTimeout(() => {
             setIsEditSuccessMessageVisible(false);
@@ -120,6 +118,11 @@ function MovieListPage({ }) {
         setIsEditMovieDialogVisible(true);
     }
 
+    function closeEditDialog() {
+        setIsEditMovieDialogVisible(false);
+        setMovieToEdit(null);
+        setParamsInURL('/', null)
+    }
     //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -217,7 +220,7 @@ function MovieListPage({ }) {
             {isEditMovieDialogVisible && movieToEdit && (
                 <UpdateMovie
                     initialMovieInfo={movieToEdit}
-                    onClose={() => setIsEditMovieDialogVisible(false)}
+                    onClose={() => closeEditDialog()}
                     onSubmit={handleEditSubmit}
                     title={EDIT_MOVIE}
                 />
