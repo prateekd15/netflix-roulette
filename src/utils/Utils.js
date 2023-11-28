@@ -1,5 +1,4 @@
 export const convertToHoursAndMinutes = minutes => {
-  console.log("minutes ", minutes);
     if (typeof minutes !== 'number' || minutes < 0) {
       return '';
     }
@@ -12,3 +11,16 @@ export const convertToHoursAndMinutes = minutes => {
   
     return `${hoursText} ${minutesText}`.trim();
   }
+
+  export const setParamsInURL = (id, searchQuery, activeGenre, selectedFilter, offset) => {
+    const params = new URLSearchParams();
+        if (searchQuery) params.set('query', searchQuery);
+        if (activeGenre) params.set('genre', activeGenre);
+        if (selectedFilter) params.set('sortBy', selectedFilter);
+        params.set('offset', offset.toString());
+        if (id) {
+            window.history.pushState({}, '', `/${id}?${params.toString()}`);
+        } else {
+            window.history.pushState({}, '', `/?${params.toString()}`);
+        }
+}
