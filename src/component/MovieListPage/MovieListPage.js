@@ -24,6 +24,7 @@ import { useSearchParams, useParams, useNavigate, useLocation } from 'react-rout
 import AddMovie from "../AddMovie/AddMovie";
 import UpdateMovie from "../UpdateMovie/UpdateMovie";
 import MessageModal from "../MessageModal/MessageModal";
+import MovieTileContainer from "../MovieTileContainer/MovieTileContainer";
 
 function MovieListPage({ }) {
 
@@ -47,7 +48,8 @@ function MovieListPage({ }) {
 
     const navigate = useNavigate();
     const location = useLocation();
-
+    const canUpdateMovie = isEditMovieDialogVisible && movieToEdit
+    
     function handleGenreSelect(selectedGenre) {
         setSearchQuery(null);
         setActiveGenre(selectedGenre);
@@ -84,7 +86,7 @@ function MovieListPage({ }) {
     };
 
     function handleAddMovieDialogChange(state) {
-        if (state) {
+        if (state && !location.pathname.includes("/new")) {
             setParamsInURL('new', null);
         } else {
             setParamsInURL('/', null);
@@ -217,7 +219,7 @@ function MovieListPage({ }) {
                 <AddMovie displayAddMovieDialog={handleAddMovieDialogChange} />
             }
 
-            {isEditMovieDialogVisible && movieToEdit && (
+            {canUpdateMovie && (
                 <UpdateMovie
                     initialMovieInfo={movieToEdit}
                     onClose={() => closeEditDialog()}
@@ -247,6 +249,13 @@ function MovieListPage({ }) {
                     <button className="movie-list-page_load_button" onClick={handleNextPage}>{NEXT_PAGE}</button>
                 </div>
             </div>
+            <MovieTileContainer 
+                movieList={movieList}  
+                handleSelectedMovie={handleSelectedMovie} 
+                handleOnEditClick={handleOnEditClick}
+                handlePrevPage={handlePrevPage}
+                handleNextPage={handleNextPage} />
+
         </>
     );
 }
