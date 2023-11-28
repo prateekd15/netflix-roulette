@@ -19,6 +19,7 @@ import {
 import MovieDetails from "../MovieDetails/MovieDetails";
 import { BASE_URL, MOVIES_URL } from "../../utils/urls";
 import { useSearchParams, useParams } from 'react-router-dom';
+import { setParamsInURL } from '../../utils/Utils';
 
 function MovieListPage({ }) {
 
@@ -34,42 +35,6 @@ function MovieListPage({ }) {
 
     const [searchParams] = useSearchParams();
     const { movieIdParam } = useParams();
-
-    function handleGenreSelect(selectedGenre) {
-        setSearchQuery(null);
-        setActiveGenre(selectedGenre);
-        setOffset(0);
-    }
-
-    function handleChangeSortFilter(filter) {
-        console.log("Called MovieListPage handleChangeSortFilter with value " + filter);
-        setSearchQuery(null);
-        setSelectedFilter(filter);
-        setOffset(0);
-    }
-
-    const handleSelectedMovie = (movie) => {
-        const movieId = (movie == null) ? null : movie.id;
-        setParamsInURL(movieId)
-        setSelectedMovie(movie);
-        
-    }
-
-    const handleSearch = (searchedMovie) => {
-        setSearchQuery(searchedMovie);
-        setActiveGenre(null);
-        setOffset(0);
-    }
-
-    const handleNextPage = () => {
-        setOffset(offset + LIMIT);
-    };
-
-    const handlePrevPage = () => {
-        if (offset >= LIMIT) {
-            setOffset(offset - LIMIT);
-        }
-    };
 
     //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
     useEffect(() => {
@@ -120,7 +85,7 @@ function MovieListPage({ }) {
 
                 setMovieList(response.data.data);
                 setTotalAmount(response.data.totalAmount);
-                setParamsInURL(movieIdParam);
+                setParamsInURL(movieIdParam, searchQuery, activeGenre, selectedFilter, offset);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -134,22 +99,46 @@ function MovieListPage({ }) {
     //Used to set the currently selected movieId in the URL
     useEffect(() => {
         if(selectedMovie != null) {
-            setParamsInURL(selectedMovie.id)
+            setParamsInURL(selectedMovie.id, searchQuery, activeGenre, selectedFilter, offset)
         }
     }, [selectedMovie])
 
-    function setParamsInURL(id) {
-        const params = new URLSearchParams();
-            if (searchQuery) params.set('query', searchQuery);
-            if (activeGenre) params.set('genre', activeGenre);
-            if (selectedFilter) params.set('sortBy', selectedFilter);
-            params.set('offset', offset.toString());
-            if (id) {
-                window.history.pushState({}, '', `/${id}?${params.toString()}`);
-            } else {
-                window.history.pushState({}, '', `/?${params.toString()}`);
-            }
+    function handleGenreSelect(selectedGenre) {
+        setSearchQuery(null);
+        setActiveGenre(selectedGenre);
+        setOffset(0);
     }
+
+    function handleChangeSortFilter(filter) {
+        console.log("Called MovieListPage handleChangeSortFilter with value " + filter);
+        setSearchQuery(null);
+        setSelectedFilter(filter);
+        setOffset(0);
+    }
+
+    const handleSelectedMovie = (movie) => {
+        const movieId = (movie == null) ? null : movie.id;
+        setParamsInURL(movieId, searchQuery, activeGenre, selectedFilter, offset);
+        setSelectedMovie(movie);
+        
+    }
+
+    const handleSearch = (searchedMovie) => {
+        setSearchQuery(searchedMovie);
+        setActiveGenre(null);
+        setOffset(0);
+    }
+
+    const handleNextPage = () => {
+        setOffset(offset + LIMIT);
+    };
+
+    const handlePrevPage = () => {
+        if (offset >= LIMIT) {
+            setOffset(offset - LIMIT);
+        }
+    };
+
     return (
         <>
             {selectedMovie == null ?
