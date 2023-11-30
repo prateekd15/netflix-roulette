@@ -24,7 +24,6 @@ import { useSearchParams, useParams, useNavigate, useLocation } from 'react-rout
 import AddMovie from "../AddMovie/AddMovie";
 import UpdateMovie from "../UpdateMovie/UpdateMovie";
 import MessageModal from "../MessageModal/MessageModal";
-import MovieTileContainer from "../MovieTileContainer/MovieTileContainer";
 
 function MovieListPage({ }) {
 
@@ -125,6 +124,7 @@ function MovieListPage({ }) {
         setMovieToEdit(null);
         setParamsInURL('/', null)
     }
+  
     //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -179,7 +179,7 @@ function MovieListPage({ }) {
 
                 setMovieList(response.data.data);
                 setTotalAmount(response.data.totalAmount);
-                setParamsInURL(currentPath, movieIdParam);
+              
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -209,6 +209,23 @@ function MovieListPage({ }) {
             navigate(`${url}?${params.toString()}`);
         }
     }
+
+    const handleSearch = (searchedMovie) => {
+        setSearchQuery(searchedMovie);
+        setActiveGenre(null);
+        setOffset(0);
+    }
+
+    const handleNextPage = () => {
+        setOffset(offset + LIMIT);
+    };
+
+    const handlePrevPage = () => {
+        if (offset >= LIMIT) {
+            setOffset(offset - LIMIT);
+        }
+    };
+
     return (
         <>
             {selectedMovie == null ?
