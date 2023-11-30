@@ -11,15 +11,16 @@ function MovieTile(props) {
     vote_average, 
     overview, 
     onSelect, 
-    id } = props;
+    id, 
+    onEditClick } = props;
 
-
-  const commaSeparatedList = genres.join(', ');
+  const commaSeparatedList = genres? genres.join(', ') : null;
   const year = release_date.split('-')[0];
   return (
+    <>
     <div className='movie-tile_outer-container'>
+    <MenuButton {...{ id, poster_path, title, release_date, genres, runtime, vote_average, overview, onEditClick }} />
       <div className='tile-container' onClick={() => onSelect(props)}>
-        <MenuButton {...{ poster_path, title, release_date, genres, runtime, vote_average, overview }} />
         <img src={poster_path} alt={title} className='poster' onError={(event) => { event.target.src = defaultPoser }} />
         <div className='info-container'>
           <div className='title-row'>
@@ -30,6 +31,7 @@ function MovieTile(props) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

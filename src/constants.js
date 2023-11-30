@@ -46,3 +46,7 @@ export const LOAD_MORE = "Load More";
 export const LIMIT = 16;
 export const PREVIOUS_PAGE = "Previous Page";
 export const NEXT_PAGE = "Next Page";
+export const FIELD_REQUIRED_MESSAGE = "Field is required";
+export const RELEASE_YEAR_INVALID_MESSAGE = "Please enter a valid release date in YYYY-MM-DD format";
+export const URL_INVALID_MESSAGE = "Please enter a valid URL";
+export const DURATION_INVALID_MESSAGE = "Please enter a valid duration";

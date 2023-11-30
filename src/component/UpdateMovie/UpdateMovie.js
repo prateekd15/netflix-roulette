@@ -1,22 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Dialog from "../Dialog/Dialog";
 import MovieForm from "../MovieForm/MovieForm";
-import { EDIT_MOVIE_MESSAGE, EDIT_MOVIE } from "../../constants";
-import MessageModal from "../MessageModal/MessageModal";
 import { createPortal } from 'react-dom';
 
-function EditMovie({initialMovieInfo, onClose, onSubmit, title}) {
+function UpdateMovie({initialMovieInfo, onClose, onSubmit, title}) {
     const movieInfo = initialMovieInfo || {
-    movieName: "",
-    releaseYear: "",
-    imageUrl: "",
-    vote_average: "",
-    genres: "",
+    title: "",
+    release_date: "",
+    poster_path: "",
+    vote_average: 0,
+    genres: [],
     runtime: "",
     overview: "",
   };
-  console.log("Logging UpdateMovie props ", movieInfo);
-  console.log("Logging UpdateMovie props ", initialMovieInfo);
   return (
     <>{createPortal(
       <Dialog title={title} onClose={onClose}>
@@ -28,4 +24,4 @@ function EditMovie({initialMovieInfo, onClose, onSubmit, title}) {
   );
 }
 
-export default EditMovie;
+export default UpdateMovie;
