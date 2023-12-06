@@ -1,0 +1,26 @@
+
+.white {
+    margin: 5px;
+    padding: 10px;
+    padding-left: none;
+    font-size: 23px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-variant-caps: all-petite-caps;
+  }
+  
+  .red {
+    margin: 5px;
+    padding: 10px;
+    font-size: 23px;
+    color: white;
+    cursor: pointer;
+    border-bottom: 5px solid #F65261; 
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    background-color: transparent;
+    font-variant-caps: all-petite-caps;
+  }

@@ -1,0 +1,50 @@
+.tile-container {
+    padding: 30px 5px;
+    max-width: fit-content;
+  }
+  
+  .poster {
+    width: 323px;
+    height: 486px;
+    flex-shrink: 0;
+  }
+  
+  .info-container {
+    margin-left: 10px;
+    color: #FFF;
+    font-family: sans-serif;
+    opacity: 0.7;
+  }
+  
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .release-year {
+    width: 66px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: 1px solid #979797;
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .genres {
+    font-family: sans-serif;
+    font-size: 14px;
+    opacity: 0.5;
+    display: block;
+  }

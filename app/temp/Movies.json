@@ -1,0 +1,43 @@
+[
+    {
+        "id": 1,
+        "imageUrl": "https://m.media-amazon.com/images/I/71DwIcSgFcS.jpg",
+        "movieName": "Inception",
+        "releaseYear": "2010",
+        "genres": ["Action", "Sci-Fi"],
+        "rating": "8.8",
+        "duration": "2h 28min",
+        "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster."
+    },
+    {
+        "id": 2,
+        "imageUrl": "https://i.insider.com/588a3ddef3629523008b45e3?width=1000&format=jpeg&auto=webp",
+        "movieName": "Beauty and the Beast",
+        "releaseYear": "2017",
+        "genres": ["Romance", "Musical"],
+        "rating": "7.1",
+        "duration": "2h 9min",
+        "description": "Disney's animated classic takes on a new form, with a widened mythology and an all-star cast. A young Prince, imprisoned in the form of a Beast (Dan Stevens), can be freed only by true love. What may be his only opportunity arrives when he meets Belle (Emma Watson), the only human girl to ever visit the castle since it was enchanted."
+    },
+    {
+        "id": 3,
+        "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
+        "movieName": "Avengers: Endgame",
+        "releaseYear": "2019",
+        "genres": ["Action", "Sci-Fi"],
+        "rating": "8.4",
+        "duration": "3h 2min",
+        "description": "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe."
+    },
+    {   
+        "id": 4,
+        "imageUrl": "https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_.jpg",
+        "movieName": "The Wolf of Wall Street",
+        "releaseYear": "2013",
+        "genres": ["Drama", "Crime"],
+        "rating": "8.2",
+        "duration": "3h 1min",
+        "description": "Jordan Belfort (DiCaprio) is Long Island penny stockbroker who serves almost two years in prison for refusing to co-operate in a huge 1990s securities fraud case that involved widespread corruption on Wall Street and in the corporate banking world, including mob infiltration."
+    }
+
+]

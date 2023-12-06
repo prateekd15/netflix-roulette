@@ -1,0 +1,121 @@
+.movie-details_outer-container {
+    background-color: #232323;
+    padding: 30px 50px;
+}
+
+.movie-details_row {
+    display: flex;
+}
+
+.movie-details_details-title {
+    color: #FFF;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.movie-details_poster {
+    width: 323px;
+    height: 486px;
+    flex-shrink: 0;
+}
+
+.movie-details_info-container {
+    padding-left: 60px;
+}
+
+.movie-details_rating-year {
+    color: #FFF;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.movie-details_rating-year-container {
+    margin-left: 25px;
+    color: #979797;
+    border-radius: 50%; /* Makes the container a circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #979797;
+}
+
+.movie-details_genres {
+    color: #FFF;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    opacity: 0.5;
+}
+
+.movie-details_duration, .movie-details_release-year {
+    color: #F65261;
+    font-family: sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.movie-details_release-year {
+    margin-left: 51px;
+}
+
+.movie-details_description {
+    width: auto;
+    max-width: max-content;
+    height: 292px;
+    flex-shrink: 0;
+    color: #FFF;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    opacity: 0.5;
+}
+
+.movie-details_release-year-row {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.movie-details_title {
+    color: #F65261;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.movie-details_inner {
+    display: flex;
+}
+
+.movie-details_title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.movie_details_search-button {
+    border: none;
+    background-color: #232323;
+}
