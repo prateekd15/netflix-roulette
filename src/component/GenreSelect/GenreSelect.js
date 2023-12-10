@@ -1,5 +1,5 @@
 import React from 'react';
-import './GenreSelect.css';
+import styles from './GenreSelect.module.css';
 import GenreButton from '../GenreButton/GenreButton'
 
 function GenreSelect({ genres, selectedGenre, onSelect }) {
@@ -9,7 +9,7 @@ function GenreSelect({ genres, selectedGenre, onSelect }) {
 		return <GenreButton key={genre} genre={genre} buttonClass={buttonClass} onSelect={() => onSelect(genre)} />
 	});
 
-	return <div className="genre-container">{genreButtons}</div>;
+	return <div className={styles.genre_container}>{genreButtons}</div>;
 }
 
 

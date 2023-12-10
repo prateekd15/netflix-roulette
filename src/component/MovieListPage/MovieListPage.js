@@ -1,4 +1,4 @@
-import "./MovieListPage.css";
+import styles from "./MovieListPage.module.css";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchForm from "../SearchForm/SearchForm";
@@ -20,12 +20,13 @@ import {
 } from '../../constants';
 import MovieDetails from "../MovieDetails/MovieDetails";
 import { BASE_URL, MOVIES_URL } from "../../utils/urls";
-import { useSearchParams, useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import AddMovie from "../AddMovie/AddMovie";
 import UpdateMovie from "../UpdateMovie/UpdateMovie";
 import MessageModal from "../MessageModal/MessageModal";
+import MovieTileContainer from "../MovieTileContainer/MovieTileContainer";
 
-function MovieListPage({ }) {
+function MovieListPage({initialMovieList, initialSelectedMovie}) {
 
     const sortFilters = [RELEASE_YEAR, TITLE];
 
@@ -36,19 +37,90 @@ function MovieListPage({ }) {
     const [movieToEdit, setMovieToEdit] = useState(null);
     const [selectedFilter, setSelectedFilter] = useState(sortFilters[0]);
     const [activeGenre, setActiveGenre] = useState(GENRES[0]);
-    const [movieList, setMovieList] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [movieList, setMovieList] = useState(initialMovieList ?? []);
+    const [selectedMovie, setSelectedMovie] = useState(initialSelectedMovie ??null);
     const [searchQuery, setSearchQuery] = useState('');
     const [offset, setOffset] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0)
 
-    const [searchParams] = useSearchParams();
-    const { movieIdParam, movieIdForEdit } = useParams();
+    const router = useRouter();
+    const { query } = router;
+    const { movieIdParam, movieIdForEdit } = query;
 
-    const navigate = useNavigate();
-    const location = useLocation();
     const canUpdateMovie = isEditMovieDialogVisible && movieToEdit
     
+    //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
+    useEffect(() => {
+        const fetchMovieDetails = async () => {
+            if (movieIdParam) {
+                try {
+                    const response = await axios.get(`http://localhost:4000/movies/${movieIdParam}`);
+                    setSelectedMovie(response.data);
+                } catch (error) {
+                    console.error('Error fetching movie details:', error);
+                    setSelectedMovie(null);
+                }
+            }
+            else if (router.pathname === '/new') {
+                handleAddMovieDialogChange(true);
+            } else if (movieIdForEdit) {
+                handleOnEditClick(movieIdForEdit);
+            }
+        };
+
+        fetchMovieDetails();
+    }, [movieIdParam, movieIdForEdit]);
+
+    //Used to fetch the queryParams from the URL
+    useEffect(() => {
+        const params = new URLSearchParams(query);
+        setSearchQuery(params.get('query') || '');
+        setActiveGenre(params.get('genre') || GENRES[0]);
+        setSelectedFilter(params.get('sortBy') || sortFilters[0]);
+        setOffset(parseInt(params.get('offset')) || 0);
+    }, [query]);
+
+    //Used to fetch movies based on default params if queryparams and movieId are absent 
+    useEffect(() => {
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+        let currentPath = router.pathname ? router.pathname : '';
+        const fetchData = async () => {
+            try {
+                const params = {
+                    search: searchQuery,
+                    searchBy: searchQuery ? 'title' : 'genres',
+                    offset: offset,
+                    limit: LIMIT,
+                    sortBy: selectedFilter === RELEASE_YEAR ? RELEASE_DATE_FILTER : TITLE_FILTER,
+                    sortOrder: 'desc',
+                    filter: searchQuery ? null : (activeGenre === ALL ? null : activeGenre),
+                };
+                const response = await axios.get(BASE_URL + MOVIES_URL, {
+                    params,
+                    signal,
+                });
+                console.log("Logging fetched data: ", response.data)
+                setMovieList(response.data.data);
+                setTotalAmount(response.data.totalAmount);
+              
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+
+        return () => abortController.abort();
+    }, [searchQuery, selectedFilter, activeGenre, offset]);
+
+    //Used to set the currently selected movieId in the URL
+    useEffect(() => {
+        if (selectedMovie != null) {
+            setParamsInURL('', selectedMovie.id)
+        }
+    }, [selectedMovie])
+
     function handleGenreSelect(selectedGenre) {
         setSearchQuery(null);
         setActiveGenre(selectedGenre);
@@ -62,30 +134,15 @@ function MovieListPage({ }) {
     }
 
     const handleSelectedMovie = (movie) => {
+        console.log("called handleSelectedMovie method with movie as: ", movie);
         const movieId = (movie == null) ? null : movie.id;
         setSelectedMovie(movie);
-        setParamsInURL('', movieId);
+        setParamsInURL('/', movieId);
 
     }
-
-    const handleSearch = (searchedMovie) => {
-        setSearchQuery(searchedMovie);
-        setActiveGenre(null);
-        setOffset(0);
-    }
-
-    const handleNextPage = () => {
-        setOffset(offset + LIMIT);
-    };
-
-    const handlePrevPage = () => {
-        if (offset >= LIMIT) {
-            setOffset(offset - LIMIT);
-        }
-    };
 
     function handleAddMovieDialogChange(state) {
-        if (state && !location.pathname.includes("/new")) {
+        if (state && !router.pathname === "/new") {
             setParamsInURL('new', null);
         } else {
             setParamsInURL('/', null);
@@ -107,7 +164,7 @@ function MovieListPage({ }) {
     };
 
     async function handleOnEditClick(movieId) {
-        if(!location.pathname.includes("/edit")) {
+        if(!router.pathname === "edit") {
             setParamsInURL(`${movieId}/edit`);
         }
         try {
@@ -124,78 +181,6 @@ function MovieListPage({ }) {
         setMovieToEdit(null);
         setParamsInURL('/', null)
     }
-  
-    //Used to fetch movieId from the url and if present, render MovieDetails with the corresponding movie
-    useEffect(() => {
-        const fetchMovieDetails = async () => {
-            if (movieIdParam) {
-                try {
-                    const response = await axios.get(`http://localhost:4000/movies/${movieIdParam}`);
-                    setSelectedMovie(response.data);
-                } catch (error) {
-                    console.error('Error fetching movie details:', error);
-                    setSelectedMovie(null);
-                }
-            }
-            else if (location.pathname === '/new') {
-                handleAddMovieDialogChange(true);
-            } else if (movieIdForEdit) {
-                handleOnEditClick(movieIdForEdit);
-            }
-        };
-
-        fetchMovieDetails();
-    }, [movieIdParam, movieIdForEdit]);
-
-    //Used to fetch the queryParams from the URL
-    useEffect(() => {
-        const params = new URLSearchParams(searchParams);
-        setSearchQuery(params.get('query') || '');
-        setActiveGenre(params.get('genre') || GENRES[0]);
-        setSelectedFilter(params.get('sortBy') || sortFilters[0]);
-        setOffset(parseInt(params.get('offset')) || 0);
-    }, [searchParams]);
-
-    //Used to fetch movies based on default params if queryparams and movieId are absent 
-    useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-        let currentPath = location.pathname ? location.pathname : '';
-        const fetchData = async () => {
-            try {
-                const params = {
-                    search: searchQuery,
-                    searchBy: searchQuery ? 'title' : 'genres',
-                    offset: offset,
-                    limit: LIMIT,
-                    sortBy: selectedFilter === RELEASE_YEAR ? RELEASE_DATE_FILTER : TITLE_FILTER,
-                    sortOrder: 'desc',
-                    filter: searchQuery ? null : (activeGenre === ALL ? null : activeGenre),
-                };
-                const response = await axios.get(BASE_URL + MOVIES_URL, {
-                    params,
-                    signal,
-                });
-
-                setMovieList(response.data.data);
-                setTotalAmount(response.data.totalAmount);
-              
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-
-        return () => abortController.abort();
-    }, [searchQuery, selectedFilter, activeGenre, offset]);
-
-    //Used to set the currently selected movieId in the URL
-    useEffect(() => {
-        if (selectedMovie != null) {
-            setParamsInURL('', selectedMovie.id)
-        }
-    }, [selectedMovie])
 
     function setParamsInURL(url, id) {
         const params = new URLSearchParams();
@@ -203,10 +188,11 @@ function MovieListPage({ }) {
         if (activeGenre) params.set('genre', activeGenre);
         if (selectedFilter) params.set('sortBy', selectedFilter);
         params.set('offset', offset.toString());
+        console.log("Generated URL after setparamsInUrl method: ", url, params);
         if (id) {
-            navigate(`${url}/${id}?${params.toString()}`);
+            router.push(`${url}/${id}?${params.toString()}`);
         } else {
-            navigate(`${url}?${params.toString()}`);
+            router.push(`${url}?${params.toString()}`);
         }
     }
 
@@ -227,7 +213,7 @@ function MovieListPage({ }) {
     };
 
     return (
-        <>
+        <div>
             {selectedMovie == null ?
                 <SearchForm onSearch={handleSearch} initialQuery={searchQuery} displayAddMovieDialog={handleAddMovieDialogChange} /> :
                 <MovieDetails {...selectedMovie} onSearchSelect={handleSelectedMovie} />
@@ -248,23 +234,9 @@ function MovieListPage({ }) {
                 <MessageModal message={EDIT_MOVIE_MESSAGE} />
             )}
 
-            <div className='genre-sort-control'>
+            <div className={styles.genre_sort_control}>
                 <GenreSelect genres={GENRES} selectedGenre={activeGenre} onSelect={handleGenreSelect} />
                 <SortControl sortFilters={sortFilters} selectedFilter={selectedFilter} onSelect={handleChangeSortFilter} />
-            </div>
-            <div className='movie_list-movie-tile-container'>
-                <div className='row'>
-                    {movieList.map((item) => {
-                        return (
-                            <div key={item.id} className="col-lg-3 col-md-6 col-sm-12">
-                                <MovieTile {...item} onSelect={handleSelectedMovie} onEditClick={handleOnEditClick} />
-                            </div>)
-                    })};
-                </div>
-                <div className="movie-list-page_pagination_container">
-                    <button className="movie-list-page_load_button" onClick={handlePrevPage}>{PREVIOUS_PAGE}</button>
-                    <button className="movie-list-page_load_button" onClick={handleNextPage}>{NEXT_PAGE}</button>
-                </div>
             </div>
             <MovieTileContainer 
                 movieList={movieList}  
@@ -273,7 +245,7 @@ function MovieListPage({ }) {
                 handlePrevPage={handlePrevPage}
                 handleNextPage={handleNextPage} />
 
-        </>
+        </div>
     );
 }
 

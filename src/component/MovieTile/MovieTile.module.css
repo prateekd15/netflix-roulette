@@ -1,4 +1,4 @@
-.tile-container {
+.tile_container {
     padding: 30px 5px;
     max-width: fit-content;
   }
@@ -9,14 +9,14 @@
     flex-shrink: 0;
   }
   
-  .info-container {
+  .info_container {
     margin-left: 10px;
     color: #FFF;
     font-family: sans-serif;
     opacity: 0.7;
   }
   
-  .title-row {
+  .title_row {
     display: flex;
     justify-content: space-between;
     padding-top: 20px;
@@ -28,7 +28,7 @@
     line-height: normal;
   }
   
-  .release-year {
+  .release_year {
     width: 66px;
     height: 26px;
     flex-shrink: 0;

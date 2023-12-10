@@ -1,4 +1,4 @@
-.movie-form_input-label {
+.movie_form_input_label {
     color: #F65261;
     font-family: sans-serif;
     font-size: 14px;
@@ -11,13 +11,13 @@
     padding: 15px;
 }
 
-.wider-input {
+.wider_input {
     width: 100%;
     height: 90px;
     border-radius: 3px;
 }
 
-.movie-form_submit-button {
+.movie_form_submit_button {
     grid-column: span 2;
     margin-top: 10px;
     padding: 8px 20px;
@@ -31,7 +31,7 @@
 
 }
 
-.movie-form_reset-button {
+.movie_form_reset_button {
     grid-column: span 2;
     margin-top: 10px;
     padding: 8px 20px;
@@ -46,7 +46,7 @@
 
 }
 
-.movie-form_input {
+.movie_form_input {
     border-radius: 2px;
     opacity: 0.8031;
     background: rgba(50, 50, 50, 0.95);
@@ -54,13 +54,13 @@
     color: #fff;
 }
 
-.movie-form_button-group {
+.movie_form_button_group {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-right: 20px;
 }
 
-.movie-form_columns {
+.movie_form_columns {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -70,12 +70,12 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.movie-form_textarea {
+.movie_form_textarea {
     margin-left: 20px;
     width: 560px;
 }
 
-.error-message {
+.error_message {
     color: rgb(255, 48, 48);
     font-family: sans-serif;
     font-size: 11px;

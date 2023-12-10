@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import "./AddMovie.css";
+import styles from "./AddMovie.module.css";
 import { ADD_SUCCESS_MESSAGE, ADD_MOVIE, INCREMENT_SYMBOL } from '../../constants';
 import UpdateMovie from "../UpdateMovie/UpdateMovie";
 import MessageModal from "../MessageModal/MessageModal";
 import axios from "axios";
-import { useNavigate} from "react-router-dom";
+import { useRouter } from 'next/router';
 
 const AddMovie = ({displayAddMovieDialog}) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleFormSubmit = async (formData) => {
     displayAddMovieDialog(false)
@@ -18,7 +18,7 @@ const AddMovie = ({displayAddMovieDialog}) => {
       const newMovieId = response.data.id;
       const urlParams = new URLSearchParams(window.location.search);
       const newUrl = `/${newMovieId}?${urlParams.toString()}`;
-      navigate(newUrl);
+      router.push(newUrl);
     } catch (error) {
       console.error('Error adding movie:', error);
     }
