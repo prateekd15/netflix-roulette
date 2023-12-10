@@ -1,11 +1,11 @@
-import './GenreButton.css';
+import styles from './GenreButton.module.css';
 
 const GenreButton = ({ genre, buttonClass, onSelect }) => {
 
     return (
         <button
             key={genre}
-            className={buttonClass}
+            className={buttonClass === "red" ? styles.red : styles.white}
             onClick={() => onSelect(genre)}
         >
             {genre}

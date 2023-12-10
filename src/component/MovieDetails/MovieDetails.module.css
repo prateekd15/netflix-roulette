@@ -1,13 +1,13 @@
-.movie-details_outer-container {
+.movie_details_outer_container {
     background-color: #232323;
     padding: 30px 50px;
 }
 
-.movie-details_row {
+.movie_details_row {
     display: flex;
 }
 
-.movie-details_details-title {
+.movie_details_details_title {
     color: #FFF;
     text-align: center;
     font-family: sans-serif;
@@ -19,17 +19,17 @@
     text-transform: uppercase;
 }
 
-.movie-details_poster {
+.movie_details_poster {
     width: 323px;
     height: 486px;
     flex-shrink: 0;
 }
 
-.movie-details_info-container {
+.movie_details_info_container {
     padding-left: 60px;
 }
 
-.movie-details_rating-year {
+.movie_details_rating_year {
     color: #FFF;
     text-align: center;
     font-family: sans-serif;
@@ -40,7 +40,7 @@
     text-transform: uppercase;
 }
 
-.movie-details_rating-year-container {
+.movie_details_rating_year_container {
     margin-left: 25px;
     color: #979797;
     border-radius: 50%; /* Makes the container a circle */
@@ -52,7 +52,7 @@
     border: 1px solid #979797;
 }
 
-.movie-details_genres {
+.movie_details_genres {
     color: #FFF;
     font-family: sans-serif;
     font-size: 14px;
@@ -62,7 +62,7 @@
     opacity: 0.5;
 }
 
-.movie-details_duration, .movie-details_release-year {
+.movie_details_duration, .movie_details_release_year {
     color: #F65261;
     font-family: sans-serif;
     font-size: 24px;
@@ -71,11 +71,11 @@
     line-height: normal;
 }
 
-.movie-details_release-year {
+.movie_details_release_year {
     margin-left: 51px;
 }
 
-.movie-details_description {
+.movie_details_description {
     width: auto;
     max-width: max-content;
     height: 292px;
@@ -89,12 +89,12 @@
     opacity: 0.5;
 }
 
-.movie-details_release-year-row {
+.movie_details_release_year_row {
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-.movie-details_title {
+.movie_details_title {
     color: #F65261;
     font-family: sans-serif;
     font-size: 20px;
@@ -103,11 +103,11 @@
     line-height: normal;
 }
 
-.movie-details_inner {
+.movie_details_inner {
     display: flex;
 }
 
-.movie-details_title-row {
+.movie_details_title_row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +115,7 @@
     padding-bottom: 20px;
 }
 
-.movie_details_search-button {
+.movie_details_search_button {
     border: none;
     background-color: #232323;
 }

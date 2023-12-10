@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./MovieForm.css";
+import React from "react";
+import styles from "./MovieForm.module.css";
 import {
   DURATION,
   GENRE,
@@ -46,41 +46,41 @@ const MovieForm = ({ movieInfo, onSubmit }) => {
   }
 
   return (
-    <div className="movie-form_container">
+    <div className={styles.movie_form_container}>
       <form onSubmit={handleSubmit(handleFormSubmit)} onReset={handleReset}>
-        <div className="movie-form_columns">
-          <label key="title" className="movie-form_input-label">
+        <div className={styles.movie_form_columns}>
+          <label key="title" className={styles.movie_form_input_label}>
             {TITLE}
             <input
               type="text"
               name="title"
-              className="movie-form_input"
+              className={styles.movie_form_input}
               {...register("title", { required: FIELD_REQUIRED_MESSAGE })}
             />
-            {errors.title && <span className="error-message">{errors.title.message}</span>}
+            {errors.title && <span className={styles.error_message}>{errors.title.message}</span>}
           </label>
-          <label key="release_date" className="movie-form_input-label">
+          <label key="release_date" className={styles.movie_form_input_label}>
             {RELEASE_YEAR}
             <input
               type="text"
               name="release_date"
-              className="movie-form_input"
+              className={styles.movie_form_input}
               {...register("release_date", {
                 required: FIELD_REQUIRED_MESSAGE,
                 pattern: {
-                  value: /^\d{4}-\d{2}-\d{2}$/,
+                  value: /^\d{4}_\d{2}_\d{2}$/,
                   message: RELEASE_YEAR_INVALID_MESSAGE,
                 },
               })}
             />
-            {errors.release_date && <span className="error-message">{errors.release_date.message}</span>}
+            {errors.release_date && <span className={styles.error_message}>{errors.release_date.message}</span>}
           </label>
-          <label key="poster_path" className="movie-form_input-label">
+          <label key="poster_path" className={styles.movie_form_input_label}>
             {MOVIE_URL}
             <input
               type="text"
               name="poster_path"
-              className="movie-form_input"
+              className={styles.movie_form_input}
               {...register("poster_path", {
                 required: FIELD_REQUIRED_MESSAGE,
                 pattern: {
@@ -90,35 +90,35 @@ const MovieForm = ({ movieInfo, onSubmit }) => {
 
               })}
             />
-            {errors.poster_path && <span className="error-message">{errors.poster_path.message}</span>}
+            {errors.poster_path && <span className={styles.error_message}>{errors.poster_path.message}</span>}
           </label>
-          <label key="vote_average" className="movie-form_input-label">
+          <label key="vote_average" className={styles.movie_form_input_label}>
             {RATING}
             <input
               type="number"
               name="vote_average"
-              className="movie-form_input"
+              className={styles.movie_form_input}
               {...register("vote_average", { required: FIELD_REQUIRED_MESSAGE })}
             />
-            {errors.vote_average && <span className="error-message">{errors.vote_average.message}</span>}
+            {errors.vote_average && <span className={styles.error_message}>{errors.vote_average.message}</span>}
           </label>
-          <label key="genres" className="movie-form_input-label">
+          <label key="genres" className={styles.movie_form_input_label}>
             {GENRE}
             <input
               type="text"
               name="genres"
-              className="movie-form_input"
+              className={styles.movie_form_input}
               {...register("genres", { required: FIELD_REQUIRED_MESSAGE })}
               onChange={handleGenreInputChange}
             />
-            {errors.genres && <span className="error-message">{errors.genres.message}</span>}
+            {errors.genres && <span className={styles.error_message}>{errors.genres.message}</span>}
           </label>
-          <label key="runtime" className="movie-form_input-label">
+          <label key="runtime" className={styles.movie_form_input_label}>
             {DURATION}
             <input
               type="text"
               name="runtime"
-              className="movie-form_input"
+              className={styles.movie_form_input}
               {...register("runtime", {
                 required: FIELD_REQUIRED_MESSAGE,
                 pattern: {
@@ -127,24 +127,24 @@ const MovieForm = ({ movieInfo, onSubmit }) => {
                 },
               })}
             />
-            {errors.runtime && <span className="error-message">{errors.runtime.message}</span>}
+            {errors.runtime && <span className={styles.error_message}>{errors.runtime.message}</span>}
           </label>
         </div>
-        <label className="movie-form_input-label movie-form_textarea">
+        <label className={[styles.movie_form_input_label, styles.movie_form_textare]}>
           {OVERVIEW}
           <textarea
-            className="wider-input movie-form_input"
+            className={[styles.wider_input, styles.movie_form_input]}
             type="text"
             name="overview"
             {...register('overview', { required: 'FIELD_REQUIRED_MESSAGE' })}
           />
-          {errors.overview && <span className="error-message">{errors.overview.message}</span>}
+          {errors.overview && <span className={styles.error_message}>{errors.overview.message}</span>}
         </label>
-        <div className="movie-form_button-group">
-          <button className="movie-form_reset-button" type="reset">
+        <div className={styles.movie_form_button_group}>
+          <button className={styles.movie_form_reset_button} type="reset">
             {RESET}
           </button>
-          <button className="movie-form_submit-button" type="submit">
+          <button className={styles.movie_form_submit_button} type="submit">
             {SUBMIT}
           </button>
         </div>

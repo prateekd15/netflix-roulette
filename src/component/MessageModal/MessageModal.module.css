@@ -1,4 +1,4 @@
-.message-modal_overlay {
+.message_modal_overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.message-modal_dialog {
+.message_modal_dialog {
     background-color: #dff0d8;
     color: #3c763d;
     padding: 20px;

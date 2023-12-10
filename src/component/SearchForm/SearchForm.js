@@ -1,7 +1,5 @@
 import { useState } from "react";
-import "./SearchForm.css";
-import searchImage from "../../assets/searchbox.png";
-import AddMovie from "../AddMovie/AddMovie";
+import styles from "./SearchForm.module.css";
 import {SEARCH} from "../../constants";
 import {FIND_YOUR_MOVIE, ADD_MOVIE, INCREMENT_SYMBOL } from "../../constants";
 
@@ -22,27 +20,27 @@ const SearchForm = ({ initialQuery, onSearch, displayAddMovieDialog }) => {
   };
 
   return (
-    <div className="search-form_container">
-      <div className="bg-image">
-        <img src={searchImage} alt="search background image" className="search-form_image" />
+    <div className={styles.search_form_container}>
+      <div className={styles.bg_image}>
+        <img src="/images/searchbox.png" alt="search background image" className={styles.search_form_image} />
       </div>
-      <div id="search-form_add-movie_div" className="search-form_add-title">
-        <span className='search-form_title'>netflixroulette</span>
-        <button className="add-movie-button" onClick={() => displayAddMovieDialog(true)}>
+      <div id="search_form_add_movie_div" className={styles.search_form_add_title}>
+        <span className={styles.search_form_title}>netflixroulette</span>
+        <button className={styles.add_movie_button} onClick={() => displayAddMovieDialog(true)}>
         {INCREMENT_SYMBOL + " " + ADD_MOVIE}
       </button>
       </div>
-      <span className="search-form_text">{FIND_YOUR_MOVIE}</span>
-      <div className="search-form">
+      <span className={styles.search_form_text}>{FIND_YOUR_MOVIE}</span>
+      <div className={styles.search_form}>
         <input
-          className="search-form-input"
+          className={styles.search_form_input}
           type="text"
           placeholder="What do you want to watch?"
           value={searchTerm}
           onChange={handleInputValueChange}
           onKeyDown={handleKeyDown}
         />
-        <button type="button" onClick={search} className="search-form__button">
+        <button type="button" onClick={search} className={styles.search_form__button}>
           {SEARCH}
         </button>
       </div>

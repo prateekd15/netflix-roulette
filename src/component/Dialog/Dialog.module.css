@@ -1,4 +1,4 @@
-.dialog-overlay {
+.dialog_overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,7 +18,7 @@
     max-width: 90%;
   }
   
-  .dialog-header {
+  .dialog_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,12 +26,12 @@
     padding-bottom: 10px;
   }
   
-  .dialog-header h2 {
+  .dialog_header h2 {
     margin: 0;
     font-size: 18px;
   }
   
-  .dialog-header button {
+  .dialog_header button {
     background: none;
     border: none;
     cursor: pointer;

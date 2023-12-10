@@ -1,19 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FocusTrap from "focus-trap-react";
-import "./Dialog.css";
-import closeButton from '../../assets/close_button.png';
+import styles from "./Dialog.module.css";
 
 const Dialog = ({ title, children, onClose }) => (
-    <div className="dialog-overlay">
-      <div className="dialog">
-        <div className="dialog-header">
-          <span className="dialog_title">{title}</span>
+    <div className={styles.dialog_overlay}>
+      <div className={styles.dialog}>
+        <div className={styles.dialog_header}>
+          <span className={styles.dialog_title}>{title}</span>
           <button onClick={onClose}>
-            <img src={closeButton} alt="X" />
+            <img src="/images/close_button.png" alt="X" />
           </button>
         </div>
-        <div className="dialog-body">{children}</div>
+        <div className={styles.dialog_body}>{children}</div>
       </div>
     </div>
 );

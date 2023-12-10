@@ -1,4 +1,4 @@
-select {
+.sort_control_select {
   appearance: none;
   border: 0;
   outline: 0;
@@ -30,31 +30,21 @@ select {
   letter-spacing: 0.889px;
   text-transform: uppercase;
 
-  select {
+  .sort_control_select {
     flex: 1;
     padding: 1em;
     cursor: pointer;
     color: #FFF;
   }
-
-  &::after {
-    content: url('/src/assets/down_arrow.png');
-    position: absolute;
-    right: 1rem;
-    top: 15px;
-    transition: 0.25s all ease;
-    pointer-events: none;
-    color: #F65261;
-  }
 }
 
-.sort-control_outer-select {
+.sort_control_outer_select {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.sort-control_label {
+.sort_control_label {
   color: #FFF;
   font-family: sans-serif;
   font-size: 16px;

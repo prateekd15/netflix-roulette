@@ -1,5 +1,4 @@
-import './MenuButton.css';
-import hoverButton from '../../assets/hover-button.png';
+import styles from './MenuButton.module.css';
 import React, { useState } from 'react';
 import DeleteMovie from '../DeleteDialog/DeleteMovie';
 import { DELETE_MOVIE_MESSAGE, EDIT_MOVIE_MESSAGE, EDIT, DELETE, EDIT_MOVIE } from "../../constants";
@@ -43,11 +42,11 @@ function MenuButton(props) {
 
  
   return (
-    <div className='movie-tile_hover-button'>
-      <img src={hoverButton} alt='Hover Button' />
-      <div className="movie-tile_menu-content">
-        <a onClick={handleEdit} className='movie-tile_menu-link'>{EDIT}</a>
-        <a onClick={handleDelete} className='movie-tile_menu-link'>{DELETE}</a>
+    <div className={styles.movie_tile_hover_button}>
+      <img src="/images/hover-button.png" alt='Hover Button' />
+      <div className={styles.movie_tile_menu_content}>
+        <a onClick={handleEdit} className={styles.movie_tile_menu_link}>{EDIT}</a>
+        <a onClick={handleDelete} className={styles.movie_tile_menu_link}>{DELETE}</a>
       </div>
 
       {showConfirmationDialog && (

@@ -1,4 +1,4 @@
-import './SortControl.css';
+import styles from './SortControl.module.css';
 
 function SortControl({ sortFilters, selectedFilter, onSelect }) {
 	const handleChange = (event) => {
@@ -7,11 +7,12 @@ function SortControl({ sortFilters, selectedFilter, onSelect }) {
 	  };
 
 	return (
-    <div className="sort-control_outer-select">
-		<span className='sort-control_label'>SORT BY</span>
-		<label className="select">
+    <div className={styles.sort_control_outer_select}>
+		<span className={styles.sort_control_label}>SORT BY</span>
+		<label className={styles.select}>
 			<select
-				id="sort-control_select"
+				className={styles.sort_control_select}
+				id="sort_control_select"
 				onChange={handleChange}
 				value={selectedFilter}>
 					{sortFilters.map((sort) => (

@@ -12,6 +12,9 @@ package-lock.json
 # production
 /build
 
+/.next
+/.cache
+
 # misc
 .DS_Store
 .env.local

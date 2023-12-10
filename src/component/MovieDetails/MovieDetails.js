@@ -1,9 +1,7 @@
 import React from 'react';
-import './MovieDetails.css';
-import searchLogo from '../../assets/search_logo.png';
+import styles from './MovieDetails.module.css';
 import { NETFLIX_ROULETTE } from '../../constants';
 import { convertToHoursAndMinutes } from '../../utils/Utils'
-import { useNavigate } from 'react-router-dom';
 
 function MovieDetails({
   genres,
@@ -18,30 +16,29 @@ function MovieDetails({
 }) {
 
   const commaSeparatedList = genres ? genres.join(', ') : null;
-  const releaseYear = release_date.split('-')[0];
-  const navigate = useNavigate();
+  const releaseYear = release_date ? release_date.split('-')[0] : '';
 
   return (
-    <div className="movie-details_outer-container">
-      <div className="movie-details_title-row">
-        <span className="movie-details_title">{NETFLIX_ROULETTE}</span>
-        <button className='movie_details_search-button' onClick={() => onSearchSelect(null)}><img src={searchLogo} alt="Search Logo" /></button>
+    <div className={styles.movie_details_outer_container}>
+      <div className={styles.movie_details_title_row}>
+        <span className={styles.movie_details_title}>{NETFLIX_ROULETTE}</span>
+        <button className={styles.movie_details_search_button}  onClick={() => onSearchSelect(null)}><img src="/images/search_logo.png" alt="Search Logo" /></button>
       </div>
-      <div className="movie-details_inner">
-        <img src={poster_path} alt={title} className="movie-details_poster" />
-        <div className="movie-details_info-container">
-          <div className="movie-details_row">
-            <span className="movie-details_details-title">{title}</span>
-            <div className="movie-details_rating-year-container">
-              <span className="movie-details_rating-year"> {vote_average} </span>
+      <div className={styles.movie_details_inner}>
+        <img src={poster_path} alt={title} className={styles.movie_details_poster} />
+        <div className={styles.movie_details_info_container}>
+          <div className={styles.movie_details_row}>
+            <span className={styles.movie_details_details_title}>{title}</span>
+            <div className={styles.movie_details_rating_year_container}>
+              <span className={styles.movie_details_rating_year}> {vote_average} </span>
             </div>
           </div>
-          <span className="movie-details_genres">{commaSeparatedList}</span>
-          <div className="movie-details_row movie-details_release-year-row">
-            <span className="movie-details_duration">{releaseYear}</span>
-            <span className="movie-details_release-year"> {convertToHoursAndMinutes(runtime)} </span>
+          <span className={styles.movie_details_genres}>{commaSeparatedList}</span>
+          <div className={[styles.movie_details_row, styles.movie_details_release_year_row]}>
+            <span className={styles.movie_details_duration}>{releaseYear}</span>
+            <span className={styles.movie_details_release_year}> {convertToHoursAndMinutes(runtime)} </span>
           </div>
-          <p className="movie-details_description">{overview}</p>
+          <p className={styles.movie_details_description}>{overview}</p>
         </div>
       </div>
     </div>
